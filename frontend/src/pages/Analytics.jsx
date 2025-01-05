@@ -4,6 +4,7 @@ import { useSpring, animated } from 'react-spring';
 import Navbar from '../components/Navbar';
 import PostTypePieChart from '../components/PostTypePieChart';
 import PostTypeBarChart from '../components/PostTypeBarChart'
+import PostTable from '../components/PostTable';
 
 const Analytics = () => {
   const postData = {
@@ -80,12 +81,13 @@ const Analytics = () => {
 
         {/* Pie Chart Section */}
         <div className="bg-gray-900 min-h-screen p-8 mt-8">
-          <h1 className="text-4xl font-bold text-white mb-6">Post Type Distribution</h1>
-          <div className="flex justify-center">
+          <h1 className="text-4xl font-bold text-white mb-6 p-6 mt-6 " align="center">Post Type Distribution</h1>
+          <div className="flex justify-between items-center">
             <PostTypePieChart/>
             <PostTypeBarChart/>
           </div>
         </div>
+        <PostTable />
       </div>
     </>
   );
