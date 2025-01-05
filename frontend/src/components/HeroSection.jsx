@@ -1,41 +1,58 @@
-import React from 'react';
-import { FaTachometerAlt, FaChartLine, FaSearch, FaLightbulb } from 'react-icons/fa';
-import heroImg from '../assets/hero.jpg';
+import React from "react";
+import { motion } from "framer-motion";
+import heroImg from "../assets/hero.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="relative bg-gradient-to-r from-indigo-600 to-blue-500 text-white py-20 lg:py-40">
-      <div className="container mx-auto flex flex-col lg:flex-row items-center px-6">
-        
-        <div className="lg:w-1/2 text-center lg:text-left">
-          <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
-            Unlock the Power of Social Media Insights with <span className="text-yellow-400">SocialPulse</span>
+    <section className="bg-gray-900 text-white py-16 px-10 ml-16">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-center items-center m-4 gap-20">
+        {/* Text Content */}
+        <motion.div
+          className="lg:w-1/2 mb-10 lg:mb-0"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h1 className="text-5xl font-bold leading-tight mb-6">
+            Empower Your Social Media Strategy
           </h1>
-          <p className="text-lg sm:text-xl mb-6">
-            Analyze your social media performance with ease. Get insights on engagement metrics, discover trends, and improve your content strategy today.
+          <p className="text-gray-400 text-lg mb-8">
+            Unlock actionable insights and analyze your social media performance with ease. 
+            Leverage AI-powered tools to make data-driven decisions and maximize engagement.
           </p>
-          <div className="flex justify-center lg:justify-start">
-            <a
-              href="#get-started"
-              className="bg-yellow-400 text-gray-900 hover:bg-yellow-500 py-3 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out"
-            >
+          <motion.div
+            className="flex space-x-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition">
               Get Started
-            </a>
+            </button>
+            <button className="bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold py-3 px-6 rounded-lg transition">
+              Learn More
+            </button>
+          </motion.div>
+        </motion.div>
+
+        {/* Image */}
+        <motion.div
+          className="lg:w-1/2"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <div className="relative">
+            <motion.img
+              src={heroImg}
+              alt="Social Media Analytics"
+              className="rounded-lg shadow-lg h-96 w-96 object-cover"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 100 }}
+            />
           </div>
-        </div>
-
-        
-        <div className="lg:w-1/2 mt-12 lg:mt-0">
-          <img
-            src={heroImg} // Replace with your own image URL
-            alt="Social Media Analytics"
-            className="w-full max-w-sm mx-auto lg:max-w-md shadow-lg rounded-lg"
-          />
-        </div>
+        </motion.div>
       </div>
-
-      
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-blue-500 to-transparent"></div>
     </section>
   );
 };

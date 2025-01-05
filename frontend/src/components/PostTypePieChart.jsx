@@ -1,0 +1,62 @@
+import React from 'react';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+
+// Registering the required Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const PostTypePieChart = () => {
+  // Data for the pie chart (static, carousel, and reel posts)
+  const postData = {
+    labels: ['Static', 'Carousel', 'Reel'], // Labels for each post type
+    datasets: [
+      {
+        label: 'Post Type Distribution',
+        data: [40, 30, 30], // Example data: static = 40, carousel = 30, reel = 30
+        backgroundColor: ['#f97316', '#6b21a8', '#2563eb'], // Colors for each segment
+        borderColor: ['#ffffff', '#ffffff', '#ffffff'], // Border color for each segment
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    animation: {
+      duration: 2000, // 2 seconds for animation
+      animateRotate: true,
+      animateScale: true,
+    },
+    plugins: {
+      legend: {
+        position: 'top', // Legend appears on top
+        labels: {
+          boxWidth: 20, // Width of the legend box
+          padding: 15, // Space between legend items
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (tooltipItem) => {
+            const value = tooltipItem.raw;
+            const total = tooltipItem.dataset.data.reduce((acc, val) => acc + val, 0);
+            const percentage = ((value / total) * 100).toFixed(2);
+            return `${tooltipItem.label}: ${percentage}%`;
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <div>
+      {/* Adding margin only for the pie chart */}
+      <div className="mt-6">
+        <Pie data={postData} options={options} />
+      </div>
+    </div>
+  );
+};
+
+export default PostTypePieChart;

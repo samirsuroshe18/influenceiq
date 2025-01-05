@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaChartBar, FaCog, FaInfoCircle, FaTachometerAlt, FaChartLine } from "react-icons/fa";
-import Logo from "../assets/socialpulse.png"
+import { FaTachometerAlt, FaChartBar, FaLightbulb, FaBars, FaArrowRight, FaHome } from "react-icons/fa";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -10,60 +9,87 @@ const Sidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
-  const menuItems = [
-    { name: "Home", icon: <FaHome />, path: "/" },
-    { name: "Dashboard", icon: <FaChartBar  />, path: "/dashboard" },
-    { name: "Analytics", icon: <FaTachometerAlt/>, path: "/analytics" },
-    { name: "Insights", icon: <FaChartLine />, path: "" },
-    { name: "Settings", icon: <FaCog />, path: "/settings" },
-    { name: "About", icon: <FaInfoCircle />, path: "/about" },
-  ];
-
   return (
-    <div className={`flex h-screen`}>
-      
-      <div
-        className={`bg-yellow-400 text-black transition-all duration-300 ${
-          isCollapsed ? "w-20" : "w-64"
-        }`}
-      >
-        <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          {/* <h1
-            className={`text-xl font-bold ${
-              isCollapsed ? "hidden" : "block"
-            }`}
-          >
-            
-          </h1> */}
-          <button
-            onClick={toggleSidebar}
-            className="text-gray-400 hover:text-white"
-          >
-            <img src={Logo}/>
-          </button>
-        </div>
-        <nav className="mt-4 px-2">
-          {menuItems.map((item) => (
-            <Link
-              to={item.path}
-              key={item.name}
-              className="flex items-center gap-4 py-4 px-4 hover:bg-yellow-500 transition-colors"
-            >
-              <div className="text-xl">{item.icon}</div>
-              <span
-                className={`text-sm font-medium ${
-                  isCollapsed ? "hidden" : "block"
-                }`}
-              >
-                {item.name}
-              </span>
-            </Link>
-          ))}
-        </nav>
+    <div
+      className={`flex flex-col bg-gray-900 text-white h-screen ${
+        isCollapsed ? "w-16" : "w-64"
+      } transition-all duration-300`}
+    >
+      {/* Sidebar Header */}
+      <div className="flex items-center justify-between px-4 py-3">
+        <h1
+          className={`text-xl font-bold ${
+            isCollapsed ? "hidden" : "block"
+          } transition-all duration-300`}
+        >
+          Social Analyzer
+        </h1>
+        <button
+          className="text-white focus:outline-none"
+          onClick={toggleSidebar}
+        >
+          <FaBars size={20} />
+        </button>
       </div>
 
-      
-      
+      {/* Navigation Links */}
+      <nav className="mt-4 flex flex-col space-y-2">
+        <Link
+          to="/dashboard"
+          className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"
+        >
+          <FaHome size={20} />
+          <span
+            className={`ml-4 ${
+              isCollapsed ? "hidden" : "block"
+            } transition-all duration-300`}
+          >
+            Home
+          </span>
+        </Link>
+
+        <Link
+          to="/dashboard"
+          className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"
+        >
+          <FaTachometerAlt size={20} />
+          <span
+            className={`ml-4 ${
+              isCollapsed ? "hidden" : "block"
+            } transition-all duration-300`}
+          >
+            Dashboard
+          </span>
+        </Link>
+
+        <Link
+          to="/analytics"
+          className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"
+        >
+          <FaChartBar size={20} />
+          <span
+            className={`ml-4 ${
+              isCollapsed ? "hidden" : "block"
+            } transition-all duration-300`}
+          >
+            Analytics
+          </span>
+        </Link>
+
+        <Link
+          to="/insights"
+          className="flex items-center px-4 py-2 hover:bg-gray-700 rounded-md"
+        >
+          <FaLightbulb size={20} />
+          <span
+            className={`ml-4 ${
+              isCollapsed ? "hidden" : "block"
+            } transition-all duration-300`}
+          >
+            Insights
+          </span>
+        </Link>
+      </nav>
     </div>
   );
 };
