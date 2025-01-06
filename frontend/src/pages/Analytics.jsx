@@ -82,7 +82,9 @@ const Analytics = () => {
         {/* Pie Chart Section */}
         <div className="bg-gray-900 min-h-screen p-8 mt-8">
           <h1 className="text-4xl font-bold text-white mb-6 p-6 mt-6 " align="center">Post Type Distribution</h1>
+          <button className="bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition">Kashasathi IDK</button>
           <div className="flex justify-between items-center">
+
             <PostTypePieChart/>
             <PostTypeBarChart/>
           </div>

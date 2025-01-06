@@ -27,6 +27,8 @@ const Navbar = () => {
           </NavLink>
         </div>
 
+        
+
         {/* Menu Button (Mobile) */}
         <button
           onClick={toggleMenu}

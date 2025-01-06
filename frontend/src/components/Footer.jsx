@@ -1,53 +1,84 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Logo from '../assets/socialpulse.png';
+import { Link } from "react-router-dom";
+import Logo from "../assets/socialpulse.png";
 
 const Footer = () => {
-    return (
-        <footer className="bg-gray-900 text-white py-6">
-            <div className="container mx-auto flex sm:flex-row items-center justify-between space-y-6 sm:space-y-0 sm:space-x-8">
-                {/* Logo Section */}
-                <div className="text-xl font-bold">
-                    <Link to="/" className="text-white hover:text-gray-400">
-                        <img src={Logo} />
-                    </Link>
-                </div>
+  return (
+    <footer className="bg-gray-900 text-white py-10">
+      <div className="container mx-auto px-6 lg:px-20 grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Logo and Tagline */}
+        <div className="flex flex-col items-center md:items-start space-y-4">
+          <Link to="/">
+            <img
+              src={Logo}
+              alt="Logo"
+              className="h-24 w-80 mb-2"
+            />
+          </Link>
+          <p className="text-gray-400 text-sm text-center md:text-left">
+            Empowering innovation through AI-driven solutions.
+          </p>
+        </div>
 
-                {/* Links Section */}
-                <div className='flex flex-col items-center space-y-4'>
-                    <div className="flex items-center list-none gap-10 mr-16">
-                        
-                            <li>
-                                <Link to="/about" className="text-white hover:text-gray-400">
-                                    About
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/contact" className="text-white hover:text-gray-400">
-                                    Contact
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/privacy" className="text-white hover:text-gray-400">
-                                    Privacy Policy
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/terms" className="text-white hover:text-gray-400">
-                                    Terms of Service
-                                </Link>
-                            </li>
-                        
-                    </div>
+        {/* Navigation Links */}
+        <div className="flex flex-col items-center md:items-start space-y-3">
+          <h4 className="text-lg font-semibold text-gray-100">Quick Links</h4>
+          <Link to="/about" className="text-gray-300 hover:text-white">
+            About Us
+          </Link>
+          <Link to="/contact" className="text-gray-300 hover:text-white">
+            Contact
+          </Link>
+          <Link to="/privacy" className="text-gray-300 hover:text-white">
+            Privacy Policy
+          </Link>
+          <Link to="/terms" className="text-gray-300 hover:text-white">
+            Terms of Service
+          </Link>
+        </div>
 
-                    {/* Copyright Section */}
-                    <div className="text-sm text-gray-400">
-                        <p>&copy; {new Date().getFullYear()} SocialPulse. All rights reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    );
+        {/* Social Media and Contact */}
+        <div className="flex flex-col items-center md:items-start space-y-4">
+          <h4 className="text-lg font-semibold text-gray-100">Follow Us</h4>
+          <div className="flex space-x-4">
+            <Link
+              to="/"
+              className="text-gray-400 hover:text-white transition duration-200"
+            >
+              <i className="fab fa-facebook-f"></i>
+            </Link>
+            <Link
+              to="/"
+              className="text-gray-400 hover:text-white transition duration-200"
+            >
+              <i className="fab fa-twitter"></i>
+            </Link>
+            <Link
+              to="/"
+              className="text-gray-400 hover:text-white transition duration-200"
+            >
+              <i className="fab fa-instagram"></i>
+            </Link>
+            <Link
+              to="/"
+              className="text-gray-400 hover:text-white transition duration-200"
+            >
+              <i className="fab fa-linkedin-in"></i>
+            </Link>
+          </div>
+          <p className="text-gray-400 text-sm">
+            Email: <span className="text-gray-200">support@socialpulse.com</span>
+          </p>
+        </div>
+      </div>
+
+      {/* Divider and Copyright */}
+      <div className="border-t border-gray-700 mt-10 pt-6">
+        <p className="text-center text-gray-500 text-sm">
+          © 2025 SocialPulse All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

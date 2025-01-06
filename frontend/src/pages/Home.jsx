@@ -10,6 +10,13 @@ const Home = () => {
     <>
         <div className=''>
           <Navbar />
+          <div className="flex ml-28">
+  <span className="inline-flex items-center px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded-full shadow-md">
+    
+    Powered by AI
+  </span>
+</div>
+
           <HeroSection  />
           
         </div>
