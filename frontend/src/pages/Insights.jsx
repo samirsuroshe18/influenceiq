@@ -33,7 +33,7 @@ const Insights = () => {
       "ParseData-uh6W9": {},
     },
   };
-
+  
   const handleSubmit = async () => {
     setLoading(true); // Start loading
     
