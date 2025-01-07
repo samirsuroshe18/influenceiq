@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 import Navbar from '../components/Navbar';
 import PostTypePieChart from '../components/PostTypePieChart';
 import PostTypeBarChart from '../components/PostTypeBarChart'
 import PostTable from '../components/PostTable';
+import { collection, testConnection } from '../config/AstraDBConnection';
 
 const Analytics = () => {
   const postData = {
@@ -13,6 +14,22 @@ const Analytics = () => {
     reels: 70,
     carousel: 40,
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await collection.find({ /* your query */ });
+        console.log(data);
+
+        // Update `postData` with fetched data if necessary
+        // Example: setPostData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const { numberTotalPosts } = useSpring({
     numberTotalPosts: postData.totalPosts,

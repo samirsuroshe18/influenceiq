@@ -1,13 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import heroImg from "../assets/hero.jpg";
+import { FaGithub } from "react-icons/fa"
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
     <section className="relative bg-black text-white py-16 px-8 overflow-hidden">
       {/* Scattered Elements */}
       <div className="absolute top-10 left-10 w-8 h-8 rounded-full bg-purple-600 opacity-50"></div>
-      <div className="absolute top-1/2 left-1/4 w-4 h-4 rounded-full bg-gray-400 opacity-75"></div>
+      {/* <div className="absolute top-1/2 left-1/4 w-4 h-4 rounded-full bg-gray-400 opacity-75"></div> */}
       <div className="absolute bottom-20 right-20 w-6 h-6 transform rotate-45 bg-purple-500 opacity-60"></div>
 
       {/* Content */}
@@ -38,9 +40,11 @@ const HeroSection = () => {
             <button className="bg-blue-600 px-6 py-3 rounded-full text-white font-medium hover:bg-blue-700 transition">
               Get Started
             </button>
+            <Link to='https://github.com/TanishqMSD/socialmedia-analyzer'>
             <button className="border-2 border-gray-500 px-6 py-3 rounded-full text-white font-medium hover:bg-gray-700 transition">
-              Github
-            </button>
+              <div className="flex items-center gap-2">
+              Github <FaGithub className='p-[2px] w-6 h-6'/></div>
+            </button> </Link>
           </div>
         </div>
 
@@ -62,7 +66,7 @@ const HeroSection = () => {
 
           {/* Circular Badge */}
           <motion.div
-            className="absolute bottom-0 right-0 bg-black text-white border-2 border-purple-500 rounded-full px-4 py-2 text-sm"
+            className="absolute bottom-0 right-0 bg-black text-white border-2 border-purple-500 rounded-full px-4 py-2 text-sm hover:bg-purple-500 hover:text-black cursor-pointer"
             initial={{ opacity: 0, rotate: -30 }}
             animate={{ opacity: 1, rotate: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
