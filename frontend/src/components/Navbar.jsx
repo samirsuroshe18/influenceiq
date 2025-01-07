@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import { Instagram, ExternalLink } from 'lucide-react';
+import Logo from "../assets/cropped.png";
 
 Modal.setAppElement('#root');
 
@@ -12,10 +13,10 @@ const Navbar = () => {
     username: "hackhorizon.ai",
     name: "Hack Horizon",
     instagramHandle: "@hackhorizon.ai",
-    instagramUrl: "https://instagram.com/hackhorizon"
+    instagramUrl: "https://instagram.com/"
   };
 
-  // NavLink style function to handle active state
+  
   const getLinkStyle = ({ isActive }) => {
     return isActive 
       ? "text-blue-500" 
@@ -25,8 +26,10 @@ const Navbar = () => {
   return (
     <>
       <nav className="bg-[#0f0f11] text-white flex justify-between items-center p-4">
-        <div className="text-2xl font-bold">Influence <sup className='p-[0.5px]'>IQ</sup></div>
-        <ul className="flex space-x-6">
+        <div className="text-2xl font-bold flex justify-center items-center space-x-2">
+          <img src={Logo} className='w-8 h-8 m-2'/>
+          Influence <sup className='p-[0.5px]'>IQ</sup></div>
+        <ul className="flex space-x-6 gap-12 text-md">
           <li><NavLink to="/" className={getLinkStyle}>Home</NavLink></li>
           <li><NavLink to="/analytics" className={getLinkStyle}>Analytics</NavLink></li>
           <li><NavLink to="/insights" className={getLinkStyle}>Insights</NavLink></li>
