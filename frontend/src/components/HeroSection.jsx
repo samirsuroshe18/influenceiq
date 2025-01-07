@@ -37,7 +37,7 @@ const HeroSection = () => {
           Unlock the full potential of your social media presence with cutting-edge AI-powered tools. Analyze engagement trends, gain actionable insights, and make data-driven decisions to elevate your online impact. Let GenAI simplify social media analytics like never before.
           </p>
           <div className="flex justify-center md:justify-start gap-4">
-            <button className="bg-blue-600 px-6 py-3 rounded-full text-white font-medium hover:bg-blue-700 transition">
+            <button className="bg-purple-600 px-6 py-3 rounded-full text-white font-medium hover:bg-purple-700 transition">
               Get Started
             </button>
             <Link to='https://github.com/TanishqMSD/socialmedia-analyzer'>

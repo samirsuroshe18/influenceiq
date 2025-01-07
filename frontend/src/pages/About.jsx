@@ -2,31 +2,35 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaEnvelope } from "react-icons/fa";
 import Navbar from "../components/Navbar";
+import Samir from "../assets/samir.jpeg"; 
+import Tanishq from "../assets/tanishq.jpeg";
+import Pranay from "../assets/Pranay.jpeg";
+import Mohit from "../assets/Mohit.jpeg";
 
 const teamMembers = [
   {
     name: "Mohit Dhangar",
-    profilePic: "https://via.placeholder.com/150",
-    github: "https://github.com/alicejohnson",
-    email: "alice@example.com",
+    profilePic: Mohit,
+    github: "https://github.com/mohit45v",
+    email: "mohit.dhangar88@gmail.com",
   },
   {
     name: "Tanishq Kulkarni",
-    profilePic: "https://via.placeholder.com/150",
-    github: "https://github.com/bobsmith",
-    email: "bob@example.com",
+    profilePic: Tanishq,
+    github: "https://github.com/TanishqMSD",
+    email: "tanishqkulkarni18@gmail.com",
   },
   {
     name: "Samir Suroshe",
-    profilePic: "https://via.placeholder.com/150",
-    github: "https://github.com/charlielee",
-    email: "charlie@example.com",
+    profilePic: Samir,
+    github: "https://github.com/samirsuroshe18",
+    email: "sameersuroshe50@gmail.com",
   },
   {
     name: "Pranay Sanap",
-    profilePic: "https://via.placeholder.com/150",
-    github: "https://github.com/dianabrown",
-    email: "diana@example.com",
+    profilePic: Pranay,
+    github: "https://github.com/pranaysanap",
+    email: "pranaysanap10@gmail.com",
   },
 ];
 

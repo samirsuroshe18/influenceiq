@@ -57,7 +57,7 @@ const PostTable = () => {
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-4xl font-bold text-center text-white mb-8">Post Analytics</h1>
 
-      <table className="min-w-full table-auto bg-gray-900 text-white">
+      <table className="min-w-full table-auto bg-[#0f0f11]  text-white">
         <thead>
           <tr>
             <th className="px-4 py-2 border-b cursor-pointer" onClick={() => handleSort('post_id')}>

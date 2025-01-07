@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import PostTypePieChart from '../components/PostTypePieChart';
 import PostTypeBarChart from '../components/PostTypeBarChart'
 import PostTable from '../components/PostTable';
@@ -63,7 +64,7 @@ const Analytics = () => {
           </div>
 
           {/* Reels Posts */}
-          <div className="flex flex-col items-center justify-center p-6 bg-purple-800 rounded-lg shadow-lg w-72">
+          <div className="flex flex-col items-center justify-center p-6 bg-purple-500 rounded-lg shadow-lg w-72">
             <animated.div className="text-6xl font-semibold text-white">
               {numberReels.to((val) => Math.floor(val))}
             </animated.div>
@@ -80,7 +81,7 @@ const Analytics = () => {
         </div>
 
         {/* Pie Chart Section */}
-        <div className="bg-gray-900 min-h-screen p-8 mt-8">
+        <div className="bg-[#0f0f11]  min-h-screen p-8 mt-8">
           <h1 className="text-4xl font-bold text-white mb-6 p-6 mt-6 " align="center">Post Type Distribution</h1>
           <button className="bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition">Kashasathi IDK</button>
           <div className="flex justify-between items-center">
@@ -91,6 +92,7 @@ const Analytics = () => {
         </div>
         <PostTable />
       </div>
+      <Footer/>
     </>
   );
 };

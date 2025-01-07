@@ -36,6 +36,7 @@ const Insights = () => {
 
   const handleSubmit = async () => {
     setLoading(true); // Start loading
+    
     try {
       const response = await axios({
         method: "post",
@@ -46,23 +47,23 @@ const Insights = () => {
         },
         data: payload,
       });
-  
+
       // Parse the response string to JSON
       const jsonResponseString =
         response.data?.outputs[0]?.outputs[0]?.results?.message?.data?.text;
-  
+
       console.log("Raw AI Response String:", jsonResponseString);
-  
+
       // Remove backticks and ```json markers before parsing
       const cleanedJsonString = jsonResponseString.replace(/```json|```/g, "");
-  
+
       console.log("Cleaned JSON String:", cleanedJsonString);
-  
+
       const responseJson = JSON.parse(cleanedJsonString); // Parse cleaned JSON string
-  
+
       // Use the parsed response to set the state
       const { insights, graph_creation, text_output } = responseJson;
-  
+
       setResponse({
         insights,
         graph_creation,
@@ -72,9 +73,10 @@ const Insights = () => {
       console.error("Error:", error.response?.data || error.message);
     } finally {
       setLoading(false); // Stop loading
+      
     }
   };
-  
+
 
   const bubbleAnimation = useSpring({
     opacity: 1,
@@ -138,56 +140,40 @@ const Insights = () => {
     <>
       <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen  py-8 px-4">
-        <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6 space-y-6">
-          <h2 className="text-3xl font-bold text-center text-gray-800">
+        <div className="w-[85%] bg-[#151518] rounded-lg shadow-lg p-6 space-y-6">
+          <h2 className="text-3xl font-bold text-center text-white">
             Know Insights with <span className="text-purple-600">AI</span>
           </h2>
 
           {/* Chat Container */}
+
           <div className="space-y-4">
             <div className="space-y-2">
-              <div className="flex justify-start">
-                <div className="bg-blue-500 text-white p-4 rounded-lg max-w-xs">
+              <div className="flex justify-end">
+                <div className="bg-purple-500 text-white p-4 rounded-lg max-w-xs">
                   <p>{userInput}</p>
                 </div>
               </div>
-
-              <div className="flex justify-end">
-                <animated.div
-                  style={bubbleAnimation}
-                  className="bg-gray-200 text-gray-800 p-4 rounded-lg max-w-xs"
-                >
-                  {loading ? (
-                    <p>Loading...</p>
-                  ) : (
-                    <div>
-                      <p>{response?.text_output}</p>
-                    </div>
-                  )}
-                </animated.div>
-              </div>
             </div>
+
+            <div className="flex justify-start py-4">
+              <animated.div
+                style={bubbleAnimation}
+                className="bg-gray-200 text-gray-800 p-4 rounded-lg max-w-lg"
+              >
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <div>
+                    <p>{response?.text_output}</p>
+                  </div>
+                )}
+              </animated.div>
+            </div>
+
+
           </div>
 
-          {/* Graphs and Charts */}
-          {response && (
-            <div className="space-y-6">
-              <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-2xl font-bold text-center text-gray-800">
-                  Engagement Metrics Comparison
-                </h3>
-                <Bar data={chartData} options={{ responsive: true }} />
-              </div>
-              <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-2xl font-bold text-center text-gray-800">
-                  Date-wise Engagement (Line Graph)
-                </h3>
-                <Line data={lineChartData} options={{ responsive: true }} />
-              </div>
-            </div>
-          )}
-
-          {/* User Input Box */}
           <div className="flex items-center gap-4">
             <textarea
               className="w-full p-4 border rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -199,14 +185,34 @@ const Insights = () => {
             />
             <button
               onClick={handleSubmit}
-              className={`bg-blue-500 text-white p-4 rounded-lg shadow-md transition ${
-                loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
-              }`}
+              className={`bg-blue-500 text-white p-4 rounded-lg shadow-md transition ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+                }`}
               disabled={loading} // Disable button while loading
             >
               {loading ? "Loading..." : <FaPaperPlane size={20} />}
             </button>
           </div>
+
+          {/* Graphs and Charts */}
+          {response && (
+            <div className="flex justify-center items-center gap-4 py-2 mb-4">
+              <div className="w-full max-w-lg h-[80%] bg-white rounded-lg shadow-lg p-6">
+                <h3 className="text-2xl font-bold text-center text-gray-800">
+                  Engagement Metrics Comparison
+                </h3>
+                <Bar data={chartData} options={{ responsive: true }} />
+              </div>
+              <div className="w-full max-w-lg h-full bg-white rounded-lg shadow-lg p-6">
+                <h3 className="text-2xl font-bold text-center text-gray-800">
+                  Date-wise Engagement (Line Graph)
+                </h3>
+                <Line data={lineChartData} options={{ responsive: true }} />
+              </div>
+            </div>
+          )}
+
+          {/* User Input Box */}
+
         </div>
       </div>
     </>

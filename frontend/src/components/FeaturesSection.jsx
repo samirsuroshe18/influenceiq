@@ -51,7 +51,7 @@ const FeaturesSection = () => {
           Speciality
         </h2>
         <h3 className="text-4xl font-bold mb-6">
-          Our <span className="text-blue-500">Features</span>
+          Our <span className="text-purple-500">Features</span>
         </h3>
         <p className="text-gray-300 mb-12 max-w-2xl mx-auto">
           Explore the features that make monitoring and improving your social media performance seamless and efficient.

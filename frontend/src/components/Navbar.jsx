@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import { Instagram, ExternalLink } from 'lucide-react';
 import Logo from "../assets/cropped.png";
@@ -19,8 +19,8 @@ const Navbar = () => {
   
   const getLinkStyle = ({ isActive }) => {
     return isActive 
-      ? "text-blue-500" 
-      : "text-white hover:text-blue-500 transition-colors";
+      ? "text-purple-500" 
+      : "text-white hover:text-purple-500 transition-colors";
   };
 
   return (
@@ -28,7 +28,7 @@ const Navbar = () => {
       <nav className="bg-[#0f0f11] text-white flex justify-between items-center p-4">
         <div className="text-2xl font-bold flex justify-center items-center space-x-2">
           <img src={Logo} className='w-8 h-8 m-2'/>
-          Influence <sup className='p-[0.5px]'>IQ</sup></div>
+          <span>Influence <sup className='p-[0.5px]'>IQ</sup></span></div>
         <ul className="flex space-x-6 gap-12 text-md">
           <li><NavLink to="/" className={getLinkStyle}>Home</NavLink></li>
           <li><NavLink to="/analytics" className={getLinkStyle}>Analytics</NavLink></li>
@@ -37,7 +37,7 @@ const Navbar = () => {
         </ul>
         <button 
           onClick={() => setIsOpen(true)} 
-          className="bg-blue-600 hover:bg-blue-700 transition-colors px-4 py-2 rounded text-white"
+          className="bg-purple-600 hover:bg-purple-700 transition-colors px-4 py-2 rounded text-white"
         >
           Account
         </button>
@@ -75,7 +75,7 @@ const Navbar = () => {
                 href={userData.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:text-blue-600"
+                className="text-purple-500 hover:text-purple-600"
               >
                 <ExternalLink size={20} />
               </a>
