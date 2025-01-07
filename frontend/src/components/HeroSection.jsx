@@ -4,54 +4,72 @@ import heroImg from "../assets/hero.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="bg-gray-900 text-white py-16 px-10 ml-16">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row justify-center items-center m-4 gap-20">
-        {/* Text Content */}
-        <motion.div
-          className="lg:w-1/2 mb-10 lg:mb-0"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <h1 className="text-5xl font-bold leading-tight mb-6">
-            Empower Your Social Media Strategy
-          </h1>
-          <p className="text-gray-400 text-lg mb-8">
-            Unlock actionable insights and analyze your social media performance with ease. 
-            Leverage AI-powered tools to make data-driven decisions and maximize engagement.
-          </p>
-          <motion.div
-            className="flex space-x-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
+    <section className="relative bg-black text-white py-16 px-8 overflow-hidden">
+      {/* Scattered Elements */}
+      <div className="absolute top-10 left-10 w-8 h-8 rounded-full bg-purple-600 opacity-50"></div>
+      <div className="absolute top-1/2 left-1/4 w-4 h-4 rounded-full bg-gray-400 opacity-75"></div>
+      <div className="absolute bottom-20 right-20 w-6 h-6 transform rotate-45 bg-purple-500 opacity-60"></div>
+
+      {/* Content */}
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
+        {/* Text Section */}
+        <div className="md:w-1/2 text-center md:text-left py-4">
+          <motion.h1
+            className="text-4xl md:text-6xl font-bold mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition">
+            This is your <br /> AI Analyst
+
+          </motion.h1>
+          <motion.h2
+            className="text-3xl text-purple-400 font-semibold mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Influence IQ
+          </motion.h2>
+          <p className="text-gray-300 mb-6">
+          Unlock the full potential of your social media presence with cutting-edge AI-powered tools. Analyze engagement trends, gain actionable insights, and make data-driven decisions to elevate your online impact. Let GenAI simplify social media analytics like never before.
+          </p>
+          <div className="flex justify-center md:justify-start gap-4">
+            <button className="bg-blue-600 px-6 py-3 rounded-full text-white font-medium hover:bg-blue-700 transition">
               Get Started
             </button>
-            <button className="bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold py-3 px-6 rounded-lg transition">
-              Learn More
+            <button className="border-2 border-gray-500 px-6 py-3 rounded-full text-white font-medium hover:bg-gray-700 transition">
+              Github
             </button>
-          </motion.div>
-        </motion.div>
-
-        {/* Image */}
-        <motion.div
-          className="lg:w-1/2"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <div className="relative">
-            <motion.img
-              src={heroImg}
-              alt="Social Media Analytics"
-              className="rounded-lg shadow-lg h-96 w-96 object-cover"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 100 }}
-            />
           </div>
-        </motion.div>
+        </div>
+
+        {/* Image Section */}
+        <div className="md:w-1/2 flex justify-center mt-10 md:mt-0 relative">
+          <motion.div
+            className="w-64 h-64 bg-gray-800 rounded-full overflow-hidden"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            {/* Placeholder for image */}
+            <img
+              src={heroImg}
+              alt="Designer Placeholder"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          {/* Circular Badge */}
+          <motion.div
+            className="absolute bottom-0 right-0 bg-black text-white border-2 border-purple-500 rounded-full px-4 py-2 text-sm"
+            initial={{ opacity: 0, rotate: -30 }}
+            animate={{ opacity: 1, rotate: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            AI Powered
+          </motion.div>
+        </div>
       </div>
     </section>
   );
