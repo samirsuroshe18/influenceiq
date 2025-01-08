@@ -4,7 +4,7 @@ import Logo from "../assets/cropped.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0f0f11] text-white py-8">
+    <footer className="bg-[#0f0f11] text-white py-4">
       <div className="container mx-auto px-4">
         {/* Main footer content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -56,8 +56,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom section */}
-        <div className="border-t border-gray-800 pt-6">
-          <div className="flex flex-col items-center space-y-2">
+        <div className="border-t border-gray-800 pt-2">
+          <div className="flex flex-col items-center">
             <p className="text-sm">Email: hackhorizon8@gmail.com</p>
             <p className="text-sm">
               © 2025 Influence<sup>IQ</sup> All rights reserved.

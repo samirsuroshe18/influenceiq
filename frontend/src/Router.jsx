@@ -7,6 +7,7 @@ import Analytics from "./pages/Analytics";
 import Insights from "./pages/Insights";
 import Preloader from "./components/Preloader";
 import About from "./pages/About";
+import NotFound from "./pages/NotFound";
 
 const AppRouter = () => {
   return (
@@ -14,15 +15,15 @@ const AppRouter = () => {
       <div className="flex">
         
         
-
         
         <div className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/insights" element={<Insights />} />
             <Route path="/about" element={<About/>} />
-            <Route path="*" element={<Preloader />} />
+            <Route path="*" element={<NotFound/>} />
           </Routes>
         </div>
       </div>

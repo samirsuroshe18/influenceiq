@@ -3,6 +3,9 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import { Client, auth } from 'cassandra-driver';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import path from 'path';
 
 const app = express();
 
@@ -10,10 +13,14 @@ app.use(cors({ origin: ["http://localhost:5173", process.env.CORS_ORIGIN] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ASTRA_DB_SECURE_BUNDLE_PATH = path.join(__dirname, 'secure-connect-dummyone.zip');
+
 app.get("/users", async (req, res) => {
     try {
         const cloud = {
-            secureConnectBundle: process.env.ASTRA_DB_SECURE_BUNDLE_PATH
+            secureConnectBundle: ASTRA_DB_SECURE_BUNDLE_PATH
         };
 
         const authProvider = new auth.PlainTextAuthProvider(
