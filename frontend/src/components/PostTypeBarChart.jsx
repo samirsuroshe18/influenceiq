@@ -1,34 +1,63 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
 // Registering the required Chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const PostTypeBarChart = () => {
-  // Data for the bar chart (like, share, and comment data for each post type)
+const PostTypeBarChart = ({ data }) => {
+  const { staticData, reelsData, carouselData } = data; // Destructure the required fields
+
+  // Data for the bar chart (likes, shares, comments for each post type)
   const postData = {
-    labels: ['Static', 'Carousel', 'Reel'], // Labels for each post type
+    labels: ["Static", "Carousel", "Reel"], // Labels for each post type
     datasets: [
       {
-        label: 'Likes',
-        data: [150, 200, 180], // Likes data for Static, Carousel, Reel
-        backgroundColor: '#f97316', // Orange for Likes
-        borderColor: '#ffffff',
+        label: "Likes",
+        data: [
+          staticData?.totalLikes,
+          carouselData?.totalLikes,
+          reelsData?.totalLikes,
+        ], 
+        backgroundColor: "#f97316", // Warm orange for Likes
+        borderColor: "#ffffff",
         borderWidth: 1,
       },
       {
-        label: 'Shares',
-        data: [100, 120, 110], // Shares data for Static, Carousel, Reel
-        backgroundColor: '#6b21a8', // Purple for Shares
-        borderColor: '#ffffff',
+        label: "Shares",
+        data: [
+          staticData?.totalShares,
+          carouselData?.totalShares,
+          reelsData?.totalShares,
+        ], 
+        backgroundColor: "#6b21a8", // Rich purple for Shares
+        borderColor: "#ffffff",
         borderWidth: 1,
       },
       {
-        label: 'Comments',
-        data: [90, 80, 110], // Comments data for Static, Carousel, Reel
-        backgroundColor: '#2563eb', // Blue for Comments
-        borderColor: '#ffffff',
+        label: "Comments",
+        data: [
+          staticData?.totalComments,
+          carouselData?.totalComments,
+          reelsData?.totalComments,
+        ], 
+        backgroundColor: "#2563eb", // Bright blue for Comments
+        borderColor: "#ffffff",
         borderWidth: 1,
       },
     ],
@@ -38,9 +67,18 @@ const PostTypeBarChart = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: "top",
+        labels: {
+          boxWidth: 20,
+          padding: 20,
+        },
       },
       tooltip: {
+        backgroundColor: "#f9f9f9",
+        titleColor: "#1f2937",
+        bodyColor: "#333",
+        borderColor: "#ddd",
+        borderWidth: 1,
         callbacks: {
           label: (tooltipItem) => {
             const value = tooltipItem.raw;
@@ -53,36 +91,49 @@ const PostTypeBarChart = () => {
       x: {
         title: {
           display: true,
-          text: 'Post Type',
+          text: "Post Type",
+          color: "#4b5563",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+        grid: {
+          color: "#e5e7eb",
         },
       },
       y: {
         title: {
           display: true,
-          text: 'Number of Interactions',
+          text: "Number of Interactions",
+          color: "#4b5563",
+          font: {
+            size: 14,
+            weight: "bold",
+          },
         },
         beginAtZero: true,
+        grid: {
+          color: "#e5e7eb",
+        },
       },
     },
-    barThickness: 30, // Adjusting bar thickness for better visual appeal
+    barThickness: 35, // Adjusted for visual balance
     layout: {
       padding: {
-        top: 20, // Ensures spacing between chart and legend
+        top: 30, // More space between chart and legend
       },
     },
+    maintainAspectRatio: false, // Allows changing height and width without affecting aspect ratio
   };
 
   return (
-    <div className="flex flex-col items-center">
-      {/* Legend (Custom labels for Like, Share, Comment) */}
-      <div className="text-center text-lg font-medium space-x-6 mb-6">
-        <span className="text-orange-500">Likes</span>
-        <span className="text-purple-700">Shares</span>
-        <span className="text-blue-600">Comments</span>
-      </div>
+    <div className="p-6 bg-white rounded-lg shadow-lg">
 
-      {/* Bar Chart */}
-      <Bar data={postData} options={options} />
+      {/* Bar Chart with increased height and width */}
+      <div className="w-96 h-96" >
+        <Bar data={postData} options={options} />
+      </div>
     </div>
   );
 };

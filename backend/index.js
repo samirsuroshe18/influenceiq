@@ -28,7 +28,7 @@ app.get("/users", async (req, res) => {
         const result = await client.execute(query);
         
         await client.shutdown();
-        return res.json(result.rows);
+        return res.status(200).json(result.rows);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
