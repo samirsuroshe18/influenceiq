@@ -114,10 +114,9 @@ const Analytics = () => {
       }
     };
 
-    if(!hasApiCalled){
+    if (!hasApiCalled) {
       fetchData();
     }
-    
   }, [hasApiCalled]);
 
   const { numberTotalPosts } = useSpring({
@@ -145,75 +144,80 @@ const Analytics = () => {
   });
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
 
       {loading ? (
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex-1 flex justify-center items-center">
           <div className="flex flex-col items-center">
-            <div className="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-white"></div>
+            <div className="animate-spin rounded-full h-16 w-16 md:h-24 md:w-24 border-t-4 border-b-4 border-white"></div>
             <div className="text-white mt-4">Loading...</div>
           </div>
         </div>
       ) : (
-        <div className="container mx-auto py-8 px-4">
-        <h1 className="text-4xl font-bold text-center text-white mb-8 py-4 mt-4">
-          Analytics Overview
-        </h1>
-
-        {/* Post Type Cards */}
-        <div className="flex flex-wrap justify-center gap-8 mt-8">
-          {/* Toatal Posts */}
-          <div className="flex flex-col items-center justify-center p-6 bg-orange-500 rounded-lg shadow-lg w-64">
-            <animated.div className="text-8xl font-semibold text-white">
-              {numberTotalPosts.to((val) => Math.floor(val))}
-            </animated.div>
-            <div className="text-xl text-white mt-2">Total posts</div>
-          </div>
-
-          {/* Static Posts */}
-          <div className="flex flex-col items-center justify-center p-6 bg-orange-500 rounded-lg shadow-lg w-64">
-            <animated.div className="text-6xl font-semibold text-white">
-              {numberStatic.to((val) => Math.floor(val))}
-            </animated.div>
-            <div className="text-xl text-white mt-2">Static</div>
-          </div>
-
-          {/* Reels Posts */}
-          <div className="flex flex-col items-center justify-center p-6 bg-purple-500 rounded-lg shadow-lg w-64">
-            <animated.div className="text-6xl font-semibold text-white">
-              {numberReels.to((val) => Math.floor(val))}
-            </animated.div>
-            <div className="text-xl text-white mt-2">Reels</div>
-          </div>
-
-          {/* Carousel Posts */}
-          <div className="flex flex-col items-center justify-center p-6 bg-blue-600 rounded-lg shadow-lg w-64">
-            <animated.div className="text-6xl font-semibold text-white">
-              {numberCarousel.to((val) => Math.floor(val))}
-            </animated.div>
-            <div className="text-xl text-white mt-2">Carousel</div>
-          </div>
-        </div>
-
-        {/* Pie Chart Section */}
-        <div className="p-8 mt-8">
-          <h1
-            className="text-4xl font-bold text-white mb-6 p-6 mt-6 "
-            align="center"
-          >
-            Post Type Distribution
+        <main className="flex-1 container mx-auto px-4 py-6 md:py-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-center text-white mb-6 md:mb-8">
+            Analytics Overview
           </h1>
-          <div className="flex justify-around items-center gap-8">
-            <PostTypePieChart data={postData} />
-            <PostTypeBarChart data={postData} />
+
+          {/* Post Type Cards - Responsive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+            {/* Total Posts */}
+            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-orange-500 rounded-lg shadow-lg">
+              <animated.div className="text-6xl md:text-8xl font-semibold text-white">
+                {numberTotalPosts.to((val) => Math.floor(val))}
+              </animated.div>
+              <div className="text-lg md:text-xl text-white mt-2">Total posts</div>
+            </div>
+
+            {/* Static Posts */}
+            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-orange-500 rounded-lg shadow-lg">
+              <animated.div className="text-5xl md:text-6xl font-semibold text-white">
+                {numberStatic.to((val) => Math.floor(val))}
+              </animated.div>
+              <div className="text-lg md:text-xl text-white mt-2">Static</div>
+            </div>
+
+            {/* Reels Posts */}
+            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-purple-500 rounded-lg shadow-lg">
+              <animated.div className="text-5xl md:text-6xl font-semibold text-white">
+                {numberReels.to((val) => Math.floor(val))}
+              </animated.div>
+              <div className="text-lg md:text-xl text-white mt-2">Reels</div>
+            </div>
+
+            {/* Carousel Posts */}
+            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-blue-600 rounded-lg shadow-lg">
+              <animated.div className="text-5xl md:text-6xl font-semibold text-white">
+                {numberCarousel.to((val) => Math.floor(val))}
+              </animated.div>
+              <div className="text-lg md:text-xl text-white mt-2">Carousel</div>
+            </div>
           </div>
-        </div>
-        <PostTable data={postData} />
-      </div>
+
+          {/* Charts Section */}
+          <section className="mt-8 md:mt-12">
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-6 text-center">
+              Post Type Distribution
+            </h2>
+            <div className="flex flex-col lg:flex-row justify-around items-center gap-8">
+              <div className="w-full lg:w-1/2">
+                <PostTypePieChart data={postData} />
+              </div>
+              <div className="w-full lg:w-1/2">
+                <PostTypeBarChart data={postData} />
+              </div>
+            </div>
+          </section>
+
+          {/* Table Section */}
+          <section className="mt-8 md:mt-12 overflow-x-auto">
+            <PostTable data={postData} />
+          </section>
+        </main>
       )}
       <Footer />
-    </>
+    </div>
   );
 };
 

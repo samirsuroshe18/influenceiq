@@ -5,6 +5,8 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import { Line, Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
+import Loader from "../components/Loader";
+import Footer from "../components/Footer";
 
 const Insights = () => {
   const [userInput, setUserInput] = useState(""); // For storing the user's input
@@ -33,10 +35,10 @@ const Insights = () => {
       "ParseData-uh6W9": {},
     },
   };
-  
+
   const handleSubmit = async () => {
     setLoading(true); // Start loading
-    
+
     try {
       const response = await axios({
         method: "post",
@@ -72,11 +74,9 @@ const Insights = () => {
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
     } finally {
-      setLoading(false); // Stop loading
-      
+      setLoading(false); // Clear the input field
     }
   };
-
 
   const bubbleAnimation = useSpring({
     opacity: 1,
@@ -162,12 +162,25 @@ const Insights = () => {
                 className="bg-gray-200 text-gray-800 p-4 rounded-lg max-w-lg"
               >
                 {loading ? (
-                  <p>Loading...</p>
+                  <div className="flex justify-center items-center ">
+                    <svg width="60" height="20" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg" fill="#6b7280">
+                      <circle cx="15" cy="25" r="5">
+                        <animate attributeName="cy" values="25;15;25" dur="0.6s" repeatCount="indefinite" begin="0s" />
+                      </circle>
+                      <circle cx="50" cy="25" r="5">
+                        <animate attributeName="cy" values="25;15;25" dur="0.6s" repeatCount="indefinite" begin="0.2s" />
+                      </circle>
+                      <circle cx="85" cy="25" r="5">
+                        <animate attributeName="cy" values="25;15;25" dur="0.6s" repeatCount="indefinite" begin="0.4s" />
+                      </circle>
+                    </svg>
+                  </div>
                 ) : (
                   <div>
                     <p>{response?.text_output}</p>
                   </div>
                 )}
+
               </animated.div>
             </div>
 
@@ -180,16 +193,16 @@ const Insights = () => {
               placeholder="Type your question here..."
               value={userInput}
               onChange={handleInputChange}
-              rows="3"
+              rows="1"
               disabled={loading} // Disable input while loading
             />
             <button
               onClick={handleSubmit}
-              className={`bg-blue-500 text-white p-4 rounded-lg shadow-md transition ${loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+              className={`bg-blue-500 text-white p-4 rounded-lg shadow-md transition ${loading ? "bg-white opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
                 }`}
               disabled={loading} // Disable button while loading
             >
-              {loading ? "Loading..." : <FaPaperPlane size={20} />}
+              {loading ? <Loader/> : <FaPaperPlane size={24} />}
             </button>
           </div>
 
@@ -215,6 +228,7 @@ const Insights = () => {
 
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

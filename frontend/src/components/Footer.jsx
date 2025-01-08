@@ -56,7 +56,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom section */}
-        <div className="border-t border-gray-800 pt-2">
+        <div className="border-t border-gray-800 pt-2 space-y-4">
           <div className="flex flex-col items-center">
             <p className="text-sm">Email: hackhorizon8@gmail.com</p>
             <p className="text-sm">

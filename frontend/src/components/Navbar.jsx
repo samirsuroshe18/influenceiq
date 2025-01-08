@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
-import { Instagram, ExternalLink } from 'lucide-react';
+import { Instagram, ExternalLink, X, Menu } from 'lucide-react'; // Added X and Menu imports
 import Logo from "../assets/cropped.png";
 
 Modal.setAppElement('#root');
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // For modal
+  const [menuOpen, setMenuOpen] = useState(false); // For hamburger menu
 
   const userData = {
     username: "hackhorizon.ai",
@@ -15,7 +16,6 @@ const Navbar = () => {
     instagramHandle: "@hackhorizon.ai",
     instagramUrl: "https://instagram.com/"
   };
-
 
   const getLinkStyle = ({ isActive }) => {
     return isActive
@@ -32,7 +32,13 @@ const Navbar = () => {
             <span>Influence <sup className='p-[0.5px]'>IQ</sup></span>
           </div>
         </Link>
-        <ul className="flex space-x-6 gap-12 text-md">
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="block md:hidden text-white focus:outline-none"
+        >
+          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+        <ul className="hidden md:flex space-x-6 gap-12 text-md">
           <li><NavLink to="/" className={getLinkStyle}>Home</NavLink></li>
           <li><NavLink to="/analytics" className={getLinkStyle}>Analytics</NavLink></li>
           <li><NavLink to="/insights" className={getLinkStyle}>Insights</NavLink></li>
@@ -40,11 +46,39 @@ const Navbar = () => {
         </ul>
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-purple-600 hover:bg-purple-700 transition-colors px-4 py-2 rounded text-white"
+          className="hidden md:block bg-purple-600 hover:bg-purple-700 transition-colors px-4 py-2 rounded text-white"
         >
           Account
         </button>
       </nav>
+
+      {/* Hamburger Menu for Small Screens */}
+      <div className="md:hidden">
+        {menuOpen && (
+          <ul className="bg-[#0f0f11] text-white space-y-2 p-4">
+            <li>
+              <NavLink to="/" className="block hover:text-purple-500">
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/analytics" className="block hover:text-purple-500">
+                Analytics
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/insights" className="block hover:text-purple-500">
+                Insights
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/about" className="block hover:text-purple-500">
+                About
+              </NavLink>
+            </li>
+          </ul>
+        )}
+      </div>
 
       <Modal
         isOpen={isOpen}
