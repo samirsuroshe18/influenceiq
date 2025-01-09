@@ -42,7 +42,7 @@ const Insights = () => {
     try {
       const response = await axios({
         method: "post",
-        url: `${import.meta.env.VITE_API_URL}${import.meta.env.VITE_END_POINT}`,
+        url: `${import.meta.env.VITE_END_POINT}`,
         headers: {
           Authorization: `Bearer ${AUTH_TOKEN}`,
           "Content-Type": "application/json",
