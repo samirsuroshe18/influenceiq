@@ -5,7 +5,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import { Line, Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
-import Loader from "../components/Loader";
+
 import Footer from "../components/Footer";
 
 const Insights = () => {
@@ -202,7 +202,7 @@ const Insights = () => {
                 }`}
               disabled={loading} // Disable button while loading
             >
-              {loading ? <Loader/> : <FaPaperPlane size={24} />}
+              {loading ? "Loading..." : <FaPaperPlane size={24} />}
             </button>
           </div>
 
