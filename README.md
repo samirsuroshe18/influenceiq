@@ -25,12 +25,33 @@ An GenAI based Web application designed to analyze and visualize social media da
 ---
 
 ## 📁 Project Structure
-
-```plaintext
+```plain text
 📂 socialmedia-analyzer
+├── 📂 backend
+│   ├── 📄 index.js               # Backend entry point
+│   ├── 📄 .env                   # Environment variables
+│   ├── 📄 package.json           # Backend dependencies
+│   └── 📄 secure-connect-dummyone.zip # DataStax connection credentials
 ├── 📂 frontend
-│   ├── 📄 App.jsx
-│   ├── 📄 index.css
-│   └── 📄 main.jsx
-├── 📄 README.md
+│   ├── 📂 src
+│   │   ├── 📂 components         # Reusable React components
+│   │   ├── 📂 pages              # Individual app pages
+│   │   ├── 📄 App.jsx            # Main React component
+│   │   ├── 📄 index.css          # Global styles
+│   │   ├── 📄 main.jsx           # React DOM rendering
+│   │   └── 📄 Router.jsx         # App routing logic
+│   ├── 📄 package.json           # Frontend dependencies
+│   ├── 📄 index.html             # HTML template
+│   └── 📄 tailwind.config.js     # Tailwind CSS configuration
+├── 📄 README.md                  # Project documentation
+└── 📄 .gitignore                 # Ignored files for Git
+
+```
+
+## 📽️ Demo Video
+
+<video src="./frontend/src/assets/Influence-IQ.mp4" controls width="600"></video>
+
+
+
 
