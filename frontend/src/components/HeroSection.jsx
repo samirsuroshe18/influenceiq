@@ -37,7 +37,7 @@ const HeroSection = () => {
           Unlock the full potential of your social media presence with cutting-edge AI-powered tools. Analyze engagement trends, gain actionable insights, and make data-driven decisions to elevate your online impact. Let GenAI simplify social media analytics like never before.
           </p>
           <div className="flex justify-center md:justify-start gap-4">
-            <Link to={import.meta.env.YOUTUBE_URL}>
+            <Link to="https://youtu.be/AI5_LbOnXm0">
               <button className="bg-purple-600 px-6 py-3 rounded-full text-white font-medium hover:bg-purple-700 transition">
                 View Demo
               </button>
