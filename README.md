@@ -48,10 +48,14 @@ An GenAI based Web application designed to analyze and visualize social media da
 
 ```
 
+
+## 📷 Photos
+
+![App Screenshot](./frontend/src/assets/ss1.png)
+![App Screenshot](./frontend/src/assets/ss2.png)
+
+-----
+
 ## 📽️ Demo Video
 
-<video src="./frontend/src/assets/Influence-IQ.mp4" controls width="600"></video>
-
-
-
-
+[Demo Video](https://youtu.be/AI5_LbOnXm0)
