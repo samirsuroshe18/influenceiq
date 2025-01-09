@@ -41,8 +41,8 @@ app.get("/users", async (req, res) => {
     }
 });
 
-app.listen(process.env.PORT || 8001, process.env.SERVER_HOST, () => {
-    console.log(`Server is running at on : http://${process.env.SERVER_HOST}:${process.env.PORT}`);
+app.listen(process.env.PORT || 8001, () => {
+    console.log(`Server is running at on : ${process.env.PORT}`);
 })
 
 export default app;
