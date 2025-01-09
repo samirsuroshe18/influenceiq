@@ -42,7 +42,7 @@ const Insights = () => {
     try {
       const response = await axios({
         method: "post",
-        url: "/api/lf/9bb3a128-8c2e-4416-866b-6ad45c278a17/api/v1/run/SocialPulse-Agent?stream=false",
+        url: `${import.meta.env.VITE_END_POINT}`,
         headers: {
           Authorization: `Bearer ${AUTH_TOKEN}`,
           "Content-Type": "application/json",

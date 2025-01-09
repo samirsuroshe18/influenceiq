@@ -9,7 +9,7 @@ import path from 'path';
 
 const app = express();
 
-app.use(cors({ origin: ["http://localhost:5173", process.env.CORS_ORIGIN] }));
+app.use(cors({ origin:  process.env.CORS_ORIGIN }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

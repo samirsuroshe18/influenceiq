@@ -37,9 +37,9 @@ const HeroSection = () => {
           Unlock the full potential of your social media presence with cutting-edge AI-powered tools. Analyze engagement trends, gain actionable insights, and make data-driven decisions to elevate your online impact. Let GenAI simplify social media analytics like never before.
           </p>
           <div className="flex justify-center md:justify-start gap-4">
-            <Link to="/insights">
+            <Link to={import.meta.env.YOUTUBE_URL}>
               <button className="bg-purple-600 px-6 py-3 rounded-full text-white font-medium hover:bg-purple-700 transition">
-                Get Started
+                View Demo
               </button>
             </Link>
             <Link to='https://github.com/TanishqMSD/socialmedia-analyzer'>
@@ -67,14 +67,16 @@ const HeroSection = () => {
           </motion.div>
 
           {/* Circular Badge */}
-          <motion.div
-            className="absolute bottom-0 right-0 bg-black text-white border-2 border-purple-500 rounded-full px-4 py-2 text-sm hover:bg-purple-500 hover:text-black"
-            initial={{ opacity: 0, rotate: -30 }}
-            animate={{ opacity: 1, rotate: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            AI Powered
-          </motion.div>
+          <Link to="/insights">
+            <motion.div
+              className="absolute bottom-0 right-0 bg-black text-white border-2 border-purple-500 rounded-full px-4 py-2 text-sm hover:bg-purple-500 hover:text-black"
+              initial={{ opacity: 0, rotate: -30 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              AI Powered
+            </motion.div>
+          </Link>
         </div>
       </div>
     </section>

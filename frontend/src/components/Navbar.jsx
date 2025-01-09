@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
 import { Instagram, ExternalLink, X, Menu } from 'lucide-react'; // Added X and Menu imports
 import Logo from "../assets/cropped.png";
+import hack from "../assets/hack.png";
 
 Modal.setAppElement('#root');
 
@@ -97,7 +98,8 @@ const Navbar = () => {
           <div className="pt-4 space-y-4">
             <div className="text-center">
               <div className="w-16 h-16 bg-gray-200 rounded-full mx-auto mb-3 flex items-center justify-center">
-                {userData.username[0].toUpperCase()}
+                <img src={hack} className='rounded-full'/>
+                
               </div>
               <h2 className="text-xl font-semibold">{userData.username}</h2>
               <p className="text-gray-600">{userData.name}</p>

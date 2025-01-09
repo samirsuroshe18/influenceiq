@@ -26,7 +26,7 @@ const Analytics = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:8000/users");
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/users`);
         const totalItems = response.data.length;
 
         // Reels data
@@ -164,14 +164,14 @@ const Analytics = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {/* Total Posts */}
             <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-orange-500 rounded-lg shadow-lg">
-              <animated.div className="text-6xl md:text-8xl font-semibold text-white">
+              <animated.div className="text-5xl md:text-6xl font-semibold text-white">
                 {numberTotalPosts.to((val) => Math.floor(val))}
               </animated.div>
               <div className="text-lg md:text-xl text-white mt-2">Total posts</div>
             </div>
 
             {/* Static Posts */}
-            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-orange-500 rounded-lg shadow-lg">
+            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-blue-600 rounded-lg shadow-lg">
               <animated.div className="text-5xl md:text-6xl font-semibold text-white">
                 {numberStatic.to((val) => Math.floor(val))}
               </animated.div>
@@ -179,7 +179,7 @@ const Analytics = () => {
             </div>
 
             {/* Reels Posts */}
-            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-purple-500 rounded-lg shadow-lg">
+            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-purple-600 rounded-lg shadow-lg">
               <animated.div className="text-5xl md:text-6xl font-semibold text-white">
                 {numberReels.to((val) => Math.floor(val))}
               </animated.div>
@@ -187,7 +187,7 @@ const Analytics = () => {
             </div>
 
             {/* Carousel Posts */}
-            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-blue-600 rounded-lg shadow-lg">
+            <div className="flex flex-col items-center justify-center p-4 md:p-6 bg-green-600 rounded-lg shadow-lg">
               <animated.div className="text-5xl md:text-6xl font-semibold text-white">
                 {numberCarousel.to((val) => Math.floor(val))}
               </animated.div>
@@ -197,18 +197,19 @@ const Analytics = () => {
 
           {/* Charts Section */}
           <section className="mt-8 md:mt-12">
-            <h2 className="text-2xl md:text-4xl font-bold text-white mb-6 text-center">
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-6 text-center space-y-4">
               Post Type Distribution
             </h2>
-            <div className="flex flex-col lg:flex-row justify-around items-center gap-8">
-              <div className="w-full lg:w-1/2">
+            <div className="flex flex-col lg:flex-row justify-evenly items-center gap-8 py-8">
+              <div className="flex justify-center w-full lg:w-auto">
                 <PostTypePieChart data={postData} />
               </div>
-              <div className="w-full lg:w-1/2">
+              <div className="flex justify-center w-full lg:w-auto">
                 <PostTypeBarChart data={postData} />
               </div>
             </div>
           </section>
+
 
           {/* Table Section */}
           <section className="mt-8 md:mt-12 overflow-x-auto">
