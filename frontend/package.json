@@ -27,6 +27,7 @@
     "react-router-dom": "^7.1.1",
     "react-spring": "^9.7.5",
     "react-tsparticles": "^2.12.2",
+    "styled-components": "^6.1.14",
     "tsparticles": "^3.7.1"
   },
   "devDependencies": {
