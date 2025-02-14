@@ -38,7 +38,7 @@ const About = () => {
   return (
     <>
       <Navbar />
-      <section className="bg-black text-white py-16 px-8 min-h-screen">
+      {/* <section className="bg-black text-white py-16 px-8 min-h-screen">
         {/* Team Introduction */}
         <motion.div
           className="text-center mb-12"
@@ -109,7 +109,7 @@ const About = () => {
             </motion.div>
           ))}
         </div>
-      </section>
+      {/*</section> */}
     </>
   );
 };
