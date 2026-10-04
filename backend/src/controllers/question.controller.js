@@ -6,7 +6,7 @@ import { generateJson, assistantReady } from '../assistant/gemini.js';
 import { ANSWER_SCHEMA, buildPrompt } from '../assistant/prompt.js';
 import { cleanAnswer } from '../assistant/answer.js';
 import { take, giveBack } from '../utils/dailyLimit.js';
-import { visitorOf } from '../utils/visitor.js';
+import { connectionOf, visitorOf } from '../utils/visitor.js';
 import { findDataset, postsOf } from './dataset.controller.js';
 
 const QUESTION_MAX = 500;
@@ -49,7 +49,7 @@ const askQuestion = asyncHandler(async (req, res) => {
     }
 
     const visitorKey = `visitor:${visitorOf(req)}`;
-    const connectionKey = `connection:${req.ip}`;
+    const connectionKey = `connection:${connectionOf(req)}`;
     const usedUp = new ApiError(429, `You have used today's ${visitorLimit()} questions. Please come back tomorrow.`);
 
     // The address the request really came from has a wide allowance of its own. A caller

@@ -1,6 +1,6 @@
 import { rateLimit } from 'express-rate-limit';
 import ApiError from '../utils/ApiError.js';
-import { visitorOf } from '../utils/visitor.js';
+import { connectionOf, visitorOf } from '../utils/visitor.js';
 
 const HOUR_MS = 60 * 60 * 1000;
 const UPLOADS_PER_HOUR = 10;
@@ -28,7 +28,7 @@ const limiter = (limit, keyGenerator) => rateLimit({
 // then one for the visitor. The first comes first, so a flood of made-up visitors is
 // refused before anything is remembered about them.
 const uploadLimiter = [
-    limiter(() => uploadsAllowed() * CONNECTION_FACTOR, (req) => `connection:${req.ip}`),
+    limiter(() => uploadsAllowed() * CONNECTION_FACTOR, (req) => `connection:${connectionOf(req)}`),
     limiter(uploadsAllowed, visitorOf),
 ];
 
