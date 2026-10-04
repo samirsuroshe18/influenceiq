@@ -1,5 +1,3 @@
-import React from 'react'
-import Sidebar from '../components/Sidebar'
 import HeroSection from '../components/HeroSection'
 import FeaturesSection from '../components/FeaturesSection'
 import Navbar from '../components/Navbar'

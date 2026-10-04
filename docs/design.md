@@ -1,12 +1,12 @@
 # InfluenceIQ: design of the completed app
 
 InfluenceIQ shows how the posts of a social media account perform, and answers
-questions about them. It began as an assignment for the Level SuperMind
-hackathon in January 2025. This document describes the completed version.
+questions about them. It began as a personal project of the team in January
+2025. This document describes the completed version.
 
 ## 1. Where the project stands
 
-The hackathon version has a landing page, an analytics page and an insights
+The first version has a landing page, an analytics page and an insights
 page, and a small server.
 
 | Problem | Effect |
@@ -38,7 +38,7 @@ accounts.
 | Look | The current dark look is kept; what is broken is fixed |
 | Out of scope | Accounts, saved datasets, connecting to real social media accounts, email |
 
-The README says that the hackathon version used Astra DB and Langflow and why
+The README says that the first version used Astra DB and Langflow and why
 they were replaced.
 
 ## 3. Data
@@ -64,7 +64,8 @@ inside the dataset document.
   rebuilt when the server starts and never expires. The dates are counted
   back from the day of the rebuild, so the sample never looks old.
 - An **uploaded dataset** gets a random id of 32 hex characters. Knowing the
-  id is what lets a visitor read it; the browser remembers it. It is deleted
+  id is what lets a visitor read it; the browser remembers it for as long as
+  the upload exists, also while the visitor looks at the sample. It is deleted
   automatically 7 days after the upload, and the visitor can remove it
   earlier.
 
@@ -75,7 +76,9 @@ inside the dataset document.
   and optionally `views` and `post_id`. Other columns are ignored.
 - The file is refused, with a message that names the reason, when it is not a
   CSV, is too large, has no header or lacks a required column, has more than
-  2,000 data rows, or has no valid row.
+  2,000 data rows, more than 50 columns or a line of more than 20,000
+  characters, or has no valid row.
+- A number has at most 12 digits. A `post_id` is cut to 40 characters.
 - A row that breaks a rule is skipped. The answer lists the skipped rows by
   line number and reason (the first 20) and says how many were skipped in
   all.
@@ -105,7 +108,7 @@ missing entry.
 | Page | Content |
 |---|---|
 | Home | As now: hero and features. The links lead to Analytics and Insights |
-| Analytics | Which dataset is shown, with "Upload your CSV", "Download sample CSV" and, for an upload, "Back to the sample" and "Remove my data". Count cards, the type charts, engagement by month (a real date axis), top posts, and the table (sorted as numbers and dates, ten per page) |
+| Analytics | Which dataset is shown, with "Upload your CSV", "Download sample CSV" and, for an upload, "Show the sample" (and "Back to my upload" from there) and "Remove my data". Count cards, the type charts, engagement by month (a real date axis), top posts, and the table (sorted as numbers and dates, ten per page) |
 | Insights | A conversation about the dataset on screen: the questions and answers of this visit, a box to ask, suggested questions to start from, and how many questions are left today. An answer has text, up to five key points and, when it helps, one chart |
 | About | The team, as now |
 | Not found | As now |
@@ -128,9 +131,11 @@ phone without sideways scrolling.
   A chart whose series do not match its labels is dropped; the text is still
   shown.
 - A question is 1 to 500 characters.
-- One call has 30 seconds. If Gemini fails or is too slow, the visitor gets
-  "The assistant is not available right now. Please try again." and the
-  question does not count against the limit.
+- One call has 30 seconds. If Gemini cannot be reached or is too slow, the
+  visitor gets "The assistant is not available right now. Please try again."
+  and the question does not count against the limit. If Gemini answered with
+  something that cannot be shown, the message is the same and the question
+  does count, because the model was asked.
 - Without `GEMINI_API_KEY` the server answers that the assistant is not set
   up, and the page says the same; the analytics work regardless.
 
@@ -144,8 +149,10 @@ phone without sideways scrolling.
 
 A day is a UTC day. A visitor is recognised by the address the request came
 from; the server sits behind the web app's proxy and the host's, and reads the
-address accordingly. The counts are kept in the database, so a restart does
-not reset them.
+address accordingly. That address is forwarded by the proxies, so a caller who
+goes around the web app can make it up. Each limit is therefore also kept, ten
+times wider, for the address the request really arrived from. The question
+counts are kept in the database, so a restart does not reset them.
 
 ## 7. API
 

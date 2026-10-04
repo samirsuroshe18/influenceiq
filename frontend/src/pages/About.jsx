@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaEnvelope } from "react-icons/fa";
 import Navbar from "../components/Navbar";
@@ -9,10 +8,10 @@ import Mohit from "../assets/Mohit.jpeg";
 
 const teamMembers = [
   {
-    name: "Mohit Dhangar",
-    profilePic: Mohit,
-    github: "https://github.com/mohit45v",
-    email: "mohit.dhangar88@gmail.com",
+    name: "Samir Suroshe",
+    profilePic: Samir,
+    github: "https://github.com/samirsuroshe18",
+    email: "sameersuroshe50@gmail.com",
   },
   {
     name: "Tanishq Kulkarni",
@@ -21,10 +20,10 @@ const teamMembers = [
     email: "tanishqkulkarni18@gmail.com",
   },
   {
-    name: "Samir Suroshe",
-    profilePic: Samir,
-    github: "https://github.com/samirsuroshe18",
-    email: "sameersuroshe50@gmail.com",
+    name: "Mohit Dhangar",
+    profilePic: Mohit,
+    github: "https://github.com/mohit45v",
+    email: "mohit.dhangar88@gmail.com",
   },
   {
     name: "Pranay Sanap",
@@ -91,6 +90,7 @@ const About = () => {
                 {/* GitHub */}
                 <a
                   href={member.github}
+                  aria-label={`${member.name} on GitHub`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-white text-2xl"
@@ -101,6 +101,7 @@ const About = () => {
                 {/* Email */}
                 <a
                   href={`mailto:${member.email}`}
+                  aria-label={`Email ${member.name}`}
                   className="text-gray-300 hover:text-white text-2xl"
                 >
                   <FaEnvelope />

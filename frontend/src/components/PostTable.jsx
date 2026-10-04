@@ -1,114 +1,95 @@
-import React, { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { dayLabel, number, TYPE_LABELS } from '../lib/format';
 
-const PostTable = ({ data }) => {
-  const { tableData } = data;
-  const [currentPage, setCurrentPage] = useState(0);
-  const [sortConfig, setSortConfig] = useState({ key: 'post_id', direction: 'asc' });
-  const postsPerPage = 10;
-  const totalPages = Math.ceil(tableData.length / postsPerPage);
+const PER_PAGE = 10;
 
-  // Function to handle sorting
-  const handleSort = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({ key, direction });
+const COLUMNS = [
+  { key: 'postId', label: 'Post ID', kind: 'text' },
+  { key: 'datePosted', label: 'Date', kind: 'text' },
+  { key: 'postType', label: 'Type', kind: 'text' },
+  { key: 'likes', label: 'Likes', kind: 'number' },
+  { key: 'views', label: 'Views', kind: 'number' },
+  { key: 'shares', label: 'Shares', kind: 'number' },
+  { key: 'comments', label: 'Comments', kind: 'number' },
+];
+
+// numbers are compared as numbers; ids as text, with "P2" before "P10"
+const compare = (kind) => (a, b) =>
+  kind === 'number' ? a - b : String(a).localeCompare(String(b), undefined, { numeric: true });
+
+const PostTable = ({ posts }) => {
+  const [page, setPage] = useState(0);
+  const [sort, setSort] = useState({ key: 'datePosted', direction: 'desc' });
+
+  const sorted = useMemo(() => {
+    const column = COLUMNS.find((one) => one.key === sort.key);
+    const order = compare(column.kind);
+    const sign = sort.direction === 'asc' ? 1 : -1;
+
+    return [...posts].sort((a, b) => sign * order(a[sort.key], b[sort.key]));
+  }, [posts, sort]);
+
+  const pages = Math.max(1, Math.ceil(sorted.length / PER_PAGE));
+  // a shorter dataset can leave the page number beyond the end
+  const current = Math.min(page, pages - 1);
+  const shown = sorted.slice(current * PER_PAGE, (current + 1) * PER_PAGE);
+
+  const sortBy = (key) => {
+    setSort((previous) => ({ key, direction: previous.key === key && previous.direction === 'asc' ? 'desc' : 'asc' }));
+    setPage(0);
   };
-
-  // Function to sort data based on the current sort configuration
-  const sortedData = [...tableData].sort((a, b) => {
-    if (a[sortConfig.key] < b[sortConfig.key]) {
-      return sortConfig.direction === 'asc' ? -1 : 1;
-    }
-    if (a[sortConfig.key] > b[sortConfig.key]) {
-      return sortConfig.direction === 'asc' ? 1 : -1;
-    }
-    return 0;
-  });
-
-  // Slice data for the current page
-  const currentData = sortedData.slice(currentPage * postsPerPage, (currentPage + 1) * postsPerPage);
-
-  const handleArrowKey = (e) => {
-    if (e.key === 'ArrowRight') {
-      setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1));
-    }
-    if (e.key === 'ArrowLeft') {
-      setCurrentPage((prev) => Math.max(prev - 1, 0));
-    }
-  };
-
-  React.useEffect(() => {
-    window.addEventListener('keydown', handleArrowKey);
-    return () => window.removeEventListener('keydown', handleArrowKey);
-  }, []);
 
   return (
-    <div className="flex items-center justify-center mt-8">
-      <div className="w-full max-w-7xl mx-auto p-8 bg-[#0f0f11] rounded-lg shadow-lg">
-        <h1 className="text-4xl font-bold text-center text-white mb-8">Post Analytics</h1>
+    <div className="w-full max-w-7xl mx-auto p-4 md:p-8 bg-[#0f0f11] rounded-lg shadow-lg">
+      <h2 className="text-2xl md:text-4xl font-bold text-center text-white mb-6">All Posts</h2>
 
-        <table className="w-full table-auto text-white">
+      <div className="overflow-x-auto">
+        <table className="w-full table-auto text-white text-sm md:text-base">
           <thead>
             <tr>
-              <th className="px-4 py-2 border-b cursor-pointer" onClick={() => handleSort('post_id')}>
-                Post ID {sortConfig.key === 'post_id' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-              </th>
-              <th className="px-4 py-2 border-b cursor-pointer" onClick={() => handleSort('date_posted')}>
-                Datetime {sortConfig.key === 'date_posted' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-              </th>
-              <th className="px-4 py-2 border-b cursor-pointer" onClick={() => handleSort('post_type')}>
-                Post Type {sortConfig.key === 'post_type' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-              </th>
-              <th className="px-4 py-2 border-b cursor-pointer" onClick={() => handleSort('likes')}>
-                Likes {sortConfig.key === 'likes' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-              </th>
-              <th className="px-4 py-2 border-b cursor-pointer" onClick={() => handleSort('views')}>
-                Views {sortConfig.key === 'views' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-              </th>
-              <th className="px-4 py-2 border-b cursor-pointer" onClick={() => handleSort('shares')}>
-                Shares {sortConfig.key === 'shares' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-              </th>
-              <th className="px-4 py-2 border-b cursor-pointer" onClick={() => handleSort('comments')}>
-                Comments {sortConfig.key === 'comments' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
-              </th>
+              {COLUMNS.map((column) => (
+                <th key={column.key} scope="col" className="px-3 md:px-4 py-2 border-b border-gray-700 text-left whitespace-nowrap" aria-sort={sort.key === column.key ? (sort.direction === 'asc' ? 'ascending' : 'descending') : 'none'}>
+                  <button type="button" onClick={() => sortBy(column.key)} className="font-semibold hover:text-purple-400">
+                    {column.label} {sort.key === column.key && (sort.direction === 'asc' ? '↑' : '↓')}
+                  </button>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {currentData.map((post) => (
-              <tr key={post.post_id}>
-                <td className="px-4 py-2 border-b">{post.post_id}</td>
-                <td className="px-4 py-2 border-b">{post.date_posted}</td>
-                <td className="px-4 py-2 border-b">{post.post_type}</td>
-                <td className="px-4 py-2 border-b">{post.likes}</td>
-                <td className="px-4 py-2 border-b">{post.views}</td>
-                <td className="px-4 py-2 border-b">{post.shares}</td>
-                <td className="px-4 py-2 border-b">{post.comments}</td>
+            {shown.map((post, index) => (
+              <tr key={`${post.postId}-${index}`} className="hover:bg-[#151518]">
+                <td className="px-3 md:px-4 py-2 border-b border-gray-800 break-all">{post.postId}</td>
+                <td className="px-3 md:px-4 py-2 border-b border-gray-800 whitespace-nowrap">{dayLabel(post.datePosted)}</td>
+                <td className="px-3 md:px-4 py-2 border-b border-gray-800">{TYPE_LABELS[post.postType]}</td>
+                <td className="px-3 md:px-4 py-2 border-b border-gray-800">{number(post.likes)}</td>
+                <td className="px-3 md:px-4 py-2 border-b border-gray-800">{number(post.views)}</td>
+                <td className="px-3 md:px-4 py-2 border-b border-gray-800">{number(post.shares)}</td>
+                <td className="px-3 md:px-4 py-2 border-b border-gray-800">{number(post.comments)}</td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
 
-        <div className="flex justify-between items-center mt-6">
-          <button
-            className="bg-gray-800 text-white px-4 py-2 rounded-lg"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
-            disabled={currentPage === 0}
-          >
-            Prev
-          </button>
-          <span className="text-white">
-            Page {currentPage + 1} of {totalPages}
-          </span>
-          <button
-            className="bg-gray-800 text-white px-4 py-2 rounded-lg"
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))}
-            disabled={currentPage === totalPages - 1}
-          >
-            Next
-          </button>
-        </div>
+      <div className="flex justify-between items-center mt-6">
+        <button
+          className="bg-gray-800 text-white px-4 py-2 rounded-lg disabled:opacity-40"
+          onClick={() => setPage(current - 1)}
+          disabled={current === 0}
+        >
+          Prev
+        </button>
+        <span className="text-white text-sm md:text-base">
+          Page {current + 1} of {pages}
+        </span>
+        <button
+          className="bg-gray-800 text-white px-4 py-2 rounded-lg disabled:opacity-40"
+          onClick={() => setPage(current + 1)}
+          disabled={current >= pages - 1}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

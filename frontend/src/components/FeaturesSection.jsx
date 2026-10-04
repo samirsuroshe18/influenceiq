@@ -1,5 +1,4 @@
-import React from "react";
-import { FaChartBar, FaRobot, FaClock, FaBolt } from "react-icons/fa";
+import { FaChartBar, FaRobot, FaFileUpload, FaBolt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
@@ -36,7 +35,7 @@ const FeaturesSection = () => {
   };
 
   return (
-    <section className="relative bg-black text-white py-16 px-8 overflow-hidden">
+    <section className="relative bg-black text-white py-16 px-4 md:px-8 overflow-hidden">
       {/* Background Particles */}
       <Particles
         id="tsparticles"
@@ -54,7 +53,7 @@ const FeaturesSection = () => {
           Our <span className="text-purple-500">Features</span>
         </h3>
         <p className="text-gray-300 mb-12 max-w-2xl mx-auto">
-          Explore the features that make monitoring and improving your social media performance seamless and efficient.
+          What you can do with InfluenceIQ.
         </p>
 
         {/* Features Grid */}
@@ -67,7 +66,7 @@ const FeaturesSection = () => {
             <FaChartBar className="text-blue-500 text-4xl mb-4 mx-auto" />
             <h4 className="text-xl font-bold mb-2">View Analytics</h4>
             <p className="text-gray-400">
-              Monitor performance metrics across all your posts, including likes, shares, and comments.
+              Totals, averages and engagement rates for every post type, month by month, with your best posts on top.
             </p>
           </motion.div>
 
@@ -79,7 +78,7 @@ const FeaturesSection = () => {
             <FaRobot className="text-purple-500 text-4xl mb-4 mx-auto" />
             <h4 className="text-xl font-bold mb-2">AI-Powered Insights</h4>
             <p className="text-gray-400">
-              Leverage AI to gain actionable insights and strategies tailored to improve your social media engagement.
+              Ask questions in plain words. The answers come from your own figures, with a chart when it helps.
             </p>
           </motion.div>
 
@@ -88,10 +87,10 @@ const FeaturesSection = () => {
             className="p-6 bg-[#0f0f11] rounded-lg shadow-lg"
             whileHover={{ scale: 1.05 }}
           >
-            <FaClock className="text-yellow-500 text-4xl mb-4 mx-auto" />
-            <h4 className="text-xl font-bold mb-2">Real-Time Monitoring</h4>
+            <FaFileUpload className="text-yellow-500 text-4xl mb-4 mx-auto" />
+            <h4 className="text-xl font-bold mb-2">Bring Your Own Data</h4>
             <p className="text-gray-400">
-              Stay updated with real-time metrics to make data-driven decisions on the go.
+              Upload a CSV of your posts and see the same analytics for them. No account needed.
             </p>
           </motion.div>
 
@@ -103,7 +102,7 @@ const FeaturesSection = () => {
             <FaBolt className="text-green-500 text-4xl mb-4 mx-auto" />
             <h4 className="text-xl font-bold mb-2">Fast & Intuitive</h4>
             <p className="text-gray-400">
-              Experience a fast, intuitive interface that makes analyzing social media performance effortless.
+              One page of figures and one conversation. Nothing to set up, and it works on a phone.
             </p>
           </motion.div>
         </div>
