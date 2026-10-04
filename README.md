@@ -4,8 +4,19 @@ InfluenceIQ shows how the posts of a social media account perform, and answers
 questions about them. Open it and you see the analytics of a sample account;
 upload a CSV of your own posts and you see the same for them.
 
+**Live demo:** <https://influenceiq-s.vercel.app>
+(the first request after a quiet spell can take up to a minute, while the
+server wakes up)
+
 We started it as a personal project in January 2025 and completed it
 afterwards. [docs/design.md](docs/design.md) describes the design.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Home](docs/screenshots/home.png) | ![Analytics: posts by type and averages](docs/screenshots/analytics-charts.png) |
+| ![Analytics: engagement by month and top posts](docs/screenshots/analytics-months.png) | ![Insights: an answer with a chart](docs/screenshots/insights.png) |
 
 ## What it does
 
@@ -91,6 +102,7 @@ npm install
 | `DAILY_QUESTION_LIMIT` | Optional. Questions per visitor per day, default `20` |
 | `SITE_QUESTION_LIMIT` | Optional. Questions for the whole site per day, default `300` |
 | `UPLOAD_RATE_LIMIT` | Optional. Uploads per visitor per hour, default `10` |
+| `CONNECTION_IP_HEADER` | Optional. A header in which the host reports the caller's address and which a caller cannot set, for example `cf-connecting-ip` on Render. Needed only where the host's own proxies sit in front of the server |
 
 The web app needs no settings.
 
@@ -140,6 +152,7 @@ The server and the web app are deployed separately.
 
 - **Server**: any Node.js host. Set the settings above, with
   `SERVER_HOST=0.0.0.0`. The start command is `npm start` in `backend`.
+  On Render, also set `CONNECTION_IP_HEADER=cf-connecting-ip`.
 - **Web app**: a static build of `frontend` (`npm run build`).
   `frontend/vercel.json` forwards `/api` to the server; put the server's
   address there.
