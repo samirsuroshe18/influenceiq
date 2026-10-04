@@ -2,6 +2,7 @@ import express from "express";
 import cors from 'cors';
 import ApiError from './utils/ApiError.js';
 import ApiResponse from './utils/ApiResponse.js';
+import datasetRouter from './routes/dataset.routes.js';
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(express.json({ limit: '100kb' }));
 app.get("/api/v1/health", (req, res) => {
     return res.status(200).json(new ApiResponse(200, { status: 'ok' }, "OK"));
 });
+
+app.use("/api/v1/datasets", datasetRouter);
 
 app.use((req, res, next) => {
     next(new ApiError(404, "Route not found"));
