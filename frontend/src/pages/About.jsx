@@ -90,6 +90,7 @@ const About = () => {
                 {/* GitHub */}
                 <a
                   href={member.github}
+                  aria-label={`${member.name} on GitHub`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-white text-2xl"
@@ -100,6 +101,7 @@ const About = () => {
                 {/* Email */}
                 <a
                   href={`mailto:${member.email}`}
+                  aria-label={`Email ${member.name}`}
                   className="text-gray-300 hover:text-white text-2xl"
                 >
                   <FaEnvelope />

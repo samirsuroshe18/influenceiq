@@ -79,7 +79,7 @@ describe('asking', () => {
 
         expect((await ask({ question: 'a'.repeat(500) })).status).toBe(200);
         expect(generateJson).toHaveBeenCalledTimes(1);
-        expect(await Usage.countDocuments()).toBe(2);
+        expect(await Usage.countDocuments()).toBe(3);
     });
 
     test('the last six turns of the conversation are passed on, cleaned', async () => {
@@ -124,13 +124,13 @@ describe('when the assistant cannot answer', () => {
         expect(next.body.data.remaining).toBe(19);
     });
 
-    test('an answer without text counts as a failure', async () => {
+    test('an answer without text is reported the same way', async () => {
         generateJson.mockResolvedValueOnce({ insights: ['only points'] });
 
         const res = await ask({ question: 'Hello?' });
 
         expect(res.status).toBe(502);
-        expect((await ask({ question: 'Again?' })).body.data.remaining).toBe(19);
+        expect(res.body.message).toBe('The assistant is not available right now. Please try again.');
     });
 
     test('a server without a key says so and asks nothing', async () => {

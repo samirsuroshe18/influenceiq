@@ -10,7 +10,7 @@ test('health answers ok', async () => {
 test('an unknown route is a 404 in the common error shape', async () => {
     const res = await request(app).get('/api/v1/nope');
     expect(res.status).toBe(404);
-    expect(res.body).toEqual({ statusCode: 404, message: 'Route not found', success: false });
+    expect(res.body).toEqual({ statusCode: 404, data: null, message: 'Route not found', success: false });
 });
 
 test('a body that is not JSON is refused, not a server error', async () => {

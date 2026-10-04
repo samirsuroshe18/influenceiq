@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Modal from 'react-modal';
 import { uploadDataset, SAMPLE_CSV_URL } from '../api/datasetApi';
 import { errorMessage } from '../api/client';
@@ -19,6 +19,15 @@ const UploadDialog = ({ isOpen, onClose, onUploaded }) => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
+  const input = useRef(null);
+
+  // The browser reports a choice only when it differs from the last one, and it cannot
+  // send a file that was changed on disk after it was chosen. So the box is emptied
+  // whenever a choice is about to be made or a file was refused.
+  const forget = () => {
+    setFile(null);
+    if (input.current) input.current.value = '';
+  };
 
   const close = () => {
     if (sending) return;
@@ -50,6 +59,7 @@ const UploadDialog = ({ isOpen, onClose, onUploaded }) => {
       onUploaded(res.data.dataset, res.data.skipped);
     } catch (failure) {
       setError(errorMessage(failure));
+      forget();
     } finally {
       setSending(false);
     }
@@ -85,7 +95,7 @@ const UploadDialog = ({ isOpen, onClose, onUploaded }) => {
 
         <div className="mt-5">
           <label htmlFor="csv-file" className="block text-sm font-medium text-gray-800 mb-1">CSV file</label>
-          <input id="csv-file" type="file" accept=".csv,text/csv" onChange={choose} className="block w-full text-sm text-gray-700" />
+          <input id="csv-file" ref={input} type="file" accept=".csv,text/csv" onClick={forget} onChange={choose} className="block w-full text-sm text-gray-700" />
         </div>
 
         {error && <p role="alert" className="mt-3 text-sm text-red-600">{error}</p>}

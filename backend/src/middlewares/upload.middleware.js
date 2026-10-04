@@ -10,7 +10,10 @@ const NO_FILE = "Choose a CSV file to upload";
 // the file is held in memory and read straight away; nothing is written to disk
 const upload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: MAX_BYTES, files: 1 },
+    // one file and no other fields: nothing else is held in memory
+    limits: { fileSize: MAX_BYTES, files: 1, fields: 0, parts: 2 },
+    // file names arrive as UTF-8
+    defParamCharset: 'utf8',
     // browsers disagree about the content type of a CSV file, so the name decides
     fileFilter: (req, file, cb) => {
         if (/\.csv$/i.test(file.originalname || '')) {

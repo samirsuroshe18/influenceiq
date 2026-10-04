@@ -15,6 +15,10 @@ const TURN_MAX = 1000;
 const ROLES = ['user', 'assistant'];
 
 const SITE_KEY = 'site';
+// many visitors can arrive through the same proxy address
+const CONNECTION_FACTOR = 10;
+
+const UNAVAILABLE = "The assistant is not available right now. Please try again.";
 
 const visitorLimit = () => Number(process.env.DAILY_QUESTION_LIMIT) || 20;
 const siteLimit = () => Number(process.env.SITE_QUESTION_LIMIT) || 300;
@@ -45,28 +49,52 @@ const askQuestion = asyncHandler(async (req, res) => {
     }
 
     const visitorKey = `visitor:${visitorOf(req)}`;
+    const connectionKey = `connection:${req.ip}`;
+    const usedUp = new ApiError(429, `You have used today's ${visitorLimit()} questions. Please come back tomorrow.`);
 
-    // the visitor's own allowance first: someone at their limit does not use up the site's
-    const remaining = await take(visitorKey, visitorLimit());
-    if (remaining === null) {
-        throw new ApiError(429, `You have used today's ${visitorLimit()} questions. Please come back tomorrow.`);
+    // The address the request really came from has a wide allowance of its own. A caller
+    // who makes up a new visitor for every request is stopped here, before anything is
+    // recorded about the made-up visitor.
+    if (await take(connectionKey, visitorLimit() * CONNECTION_FACTOR) === null) {
+        throw usedUp;
     }
 
+    // the visitor's own allowance before the site's: someone at their limit does not use up the site's
+    const remaining = await take(visitorKey, visitorLimit());
+    if (remaining === null) {
+        await giveBack(connectionKey);
+        throw usedUp;
+    }
+
+    const taken = [connectionKey, visitorKey];
+
     if (await take(SITE_KEY, siteLimit()) === null) {
-        await giveBack(visitorKey);
+        await Promise.all(taken.map(giveBack));
         throw new ApiError(429, "The assistant has answered its questions for today. Please come back tomorrow.");
+    }
+
+    taken.push(SITE_KEY);
+
+    let raw;
+    try {
+        // the figures are sent, not the table of posts
+        const figures = figuresOf(postsOf(dataset));
+        raw = await generateJson(buildPrompt({ name: dataset.name, figures, history, question }), ANSWER_SCHEMA);
+    } catch (error) {
+        console.log(`The assistant could not be reached: ${error.message}`);
+        // the model was never asked, so the question is not counted
+        await Promise.allSettled(taken.map(giveBack));
+        throw new ApiError(502, UNAVAILABLE);
     }
 
     let answer;
     try {
-        // the figures are sent, not the table of posts
-        const figures = figuresOf(postsOf(dataset));
-        answer = cleanAnswer(await generateJson(buildPrompt({ name: dataset.name, figures, history, question }), ANSWER_SCHEMA));
+        answer = cleanAnswer(raw);
     } catch (error) {
+        // The model was asked and what it sent cannot be shown. The question stays
+        // counted, or asking for unusable answers would cost nothing.
         console.log(`The assistant failed: ${error.message}`);
-        // a question without an answer is not counted
-        await Promise.all([giveBack(visitorKey), giveBack(SITE_KEY)]);
-        throw new ApiError(502, "The assistant is not available right now. Please try again.");
+        throw new ApiError(502, UNAVAILABLE);
     }
 
     return res.status(200).json(

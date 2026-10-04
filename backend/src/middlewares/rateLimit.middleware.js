@@ -24,11 +24,12 @@ const limiter = (limit, keyGenerator) => rateLimit({
     handler: (req, res, next) => next(new ApiError(429, "Too many uploads. Please try again in an hour.")),
 });
 
-// one limit for the visitor, and a wider one for the address the request arrived from,
-// which cannot be made up
+// A wide limit for the address the request arrived from, which cannot be made up, and
+// then one for the visitor. The first comes first, so a flood of made-up visitors is
+// refused before anything is remembered about them.
 const uploadLimiter = [
-    limiter(uploadsAllowed, visitorOf),
     limiter(() => uploadsAllowed() * CONNECTION_FACTOR, (req) => `connection:${req.ip}`),
+    limiter(uploadsAllowed, visitorOf),
 ];
 
 export { uploadLimiter }

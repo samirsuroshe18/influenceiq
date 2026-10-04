@@ -10,7 +10,9 @@ const app = express();
 // req.ip the address the proxy saw
 app.set('trust proxy', 1);
 
-app.use(cors({ origin: process.env.CORS_ORIGIN }));
+// the web app reaches the server through its own address, so other origins are only
+// allowed when one is named
+app.use(cors({ origin: process.env.CORS_ORIGIN || false }));
 app.use(express.json({ limit: '100kb' }));
 
 app.get("/api/v1/health", (req, res) => {
@@ -39,6 +41,7 @@ app.use((err, req, res, next) => {
 
     return res.status(statusCode).json({
         statusCode: statusCode,
+        data: null,
         message: message,
         success: false
     });

@@ -4,7 +4,7 @@ export const TYPE_COLORS = { reels: '#2563eb', carousel: '#6b21a8', static: '#f9
 export const number = (value) => Number(value || 0).toLocaleString('en-US');
 
 // an engagement rate, which the server leaves empty when nothing was viewed
-export const rate = (value) => (value === null || value === undefined ? 'n/a' : `${value}%`);
+export const rate = (value) => (value === null || value === undefined ? 'n/a' : `${Number(value).toFixed(1)}%`);
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 

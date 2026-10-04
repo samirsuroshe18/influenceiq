@@ -18,7 +18,8 @@ hackathon in January 2025 and was completed afterwards.
 - **Your own data**: upload a CSV file without signing up. Rows that cannot be
   read are skipped and reported by line number.
 - **No accounts**: an upload gets a long random id that only your browser
-  knows. It is deleted after 7 days, and you can remove it earlier.
+  knows. It is deleted after 7 days, and you can remove it earlier. You can
+  switch between your upload and the sample at any time.
 
 ## How it changed since the hackathon
 
@@ -84,8 +85,8 @@ npm install
 | Key | Purpose |
 |---|---|
 | `MONGODB_URI` | Database connection string |
-| `PORT`, `SERVER_HOST` | Where the server listens (`3003`, `localhost`) |
-| `CORS_ORIGIN` | Address of the web app (`http://localhost:5177`) |
+| `PORT`, `SERVER_HOST` | Where the server listens (`3003`, `localhost`). On a host, `SERVER_HOST` is `0.0.0.0` and the host sets `PORT` |
+| `CORS_ORIGIN` | Optional. Another origin that may call the server from a browser. The web app itself needs none: it reaches the server through its own address |
 | `GEMINI_API_KEY` | Optional. Without it the analytics work and the Insights page says the assistant is not set up |
 | `GEMINI_MODEL` | Optional. Defaults to `gemini-3.5-flash-lite` |
 | `DAILY_QUESTION_LIMIT` | Optional. Questions per visitor per day, default `20` |
@@ -127,15 +128,19 @@ The tests start their own in-memory database and never call Gemini.
   file) is passed as data, apart from the instructions.
 - Its answer must fit a fixed shape. A chart that cannot be drawn is dropped;
   the text is still shown.
-- A question that gets no answer does not count against the daily limit.
+- A question does not count against the daily limit when the assistant could
+  not be reached.
+- The limits are kept for each visitor and, more widely, for the address a
+  request really came from, so they cannot be reset by pretending to be
+  someone else.
 - The key stays on the server.
 
 ## Deployment
 
 The server and the web app are deployed separately.
 
-- **Server**: any Node.js host. Set the settings above, with `CORS_ORIGIN`
-  pointing at the web app. The start command is `npm start` in `backend`.
+- **Server**: any Node.js host. Set the settings above, with
+  `SERVER_HOST=0.0.0.0`. The start command is `npm start` in `backend`.
 - **Web app**: a static build of `frontend` (`npm run build`).
   `frontend/vercel.json` forwards `/api` to the server; put the server's
   address there.

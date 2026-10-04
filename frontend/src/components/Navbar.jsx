@@ -15,7 +15,7 @@ const LINKS = [
 ];
 
 const Navbar = () => {
-  const { dataset, isSample } = useDataset();
+  const { dataset, isSample, upload } = useDataset();
   const [isOpen, setIsOpen] = useState(false); // the dataset popup
   const [menuOpen, setMenuOpen] = useState(false); // the menu on a phone
 
@@ -37,6 +37,7 @@ const Navbar = () => {
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
           className="block md:hidden text-white focus:outline-none"
         >
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -99,7 +100,9 @@ const Navbar = () => {
 
             <p className="text-sm text-gray-600 text-center">
               {isSample
-                ? 'Every page shows the sample account. Upload a CSV of your own posts on the Analytics page.'
+                ? (upload
+                    ? 'Every page shows the sample account. Your upload is still kept; go back to it on the Analytics page.'
+                    : 'Every page shows the sample account. Upload a CSV of your own posts on the Analytics page.')
                 : 'Every page shows the posts you uploaded. They are kept for 7 days and only this browser can open them.'}
             </p>
 
@@ -108,7 +111,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
               className="block text-center bg-purple-600 hover:bg-purple-700 transition-colors px-4 py-2 rounded text-white"
             >
-              {isSample ? 'Upload your own' : 'Manage on Analytics'}
+              {isSample && !upload ? 'Upload your own' : 'Manage on Analytics'}
             </Link>
           </div>
         </div>

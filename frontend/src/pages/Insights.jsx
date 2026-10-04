@@ -10,6 +10,8 @@ import { useDataset } from "../lib/DatasetContext";
 import { readChat, saveChat } from "../lib/datasetStore";
 
 const QUESTION_MAX = 500;
+// the server looks at the last six turns; more need not be sent
+const TURNS_SENT = 6;
 const GONE = "Your uploaded posts are no longer stored, so the sample is shown instead.";
 
 const SUGGESTIONS = [
@@ -91,7 +93,7 @@ const Conversation = ({ dataset, onGone }) => {
     setSending(true);
 
     try {
-      const history = before.map(({ role, text: said }) => ({ role, text: said }));
+      const history = before.slice(-TURNS_SENT).map(({ role, text: said }) => ({ role, text: said }));
       const { answer, remaining: left } = await askQuestion(dataset.id, question, history);
 
       setMessages((current) => [...current, { role: "assistant", ...answer }]);
@@ -109,6 +111,7 @@ const Conversation = ({ dataset, onGone }) => {
       setInput(question);
       setError(errorMessage(failure));
       setClosed(status === 429 || status === 503);
+      if (status === 429) setRemaining(0);
     } finally {
       setSending(false);
     }
@@ -207,7 +210,7 @@ const Conversation = ({ dataset, onGone }) => {
 };
 
 const Insights = () => {
-  const { dataset, notice, reset, clearNotice } = useDataset();
+  const { dataset, notice, forgetUpload, clearNotice } = useDataset();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -219,7 +222,7 @@ const Insights = () => {
             <button onClick={clearNotice} aria-label="Dismiss" className="text-gray-400 hover:text-white">✕</button>
           </div>
         )}
-        <Conversation key={dataset.id} dataset={dataset} onGone={() => reset(GONE)} />
+        <Conversation key={dataset.id} dataset={dataset} onGone={() => forgetUpload(GONE)} />
       </main>
       <Footer />
     </div>

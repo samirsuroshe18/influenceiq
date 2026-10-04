@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -31,31 +31,41 @@ const CountCard = ({ value, label, color }) => {
 };
 
 const Analytics = () => {
-  const { dataset, isSample, notice, choose, reset, clearNotice } = useDataset();
+  const { dataset, isSample, upload, notice, choose, viewSample, viewUpload, forgetUpload, clearNotice } = useDataset();
   const [analytics, setAnalytics] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [uploadOpen, setUploadOpen] = useState(false);
   const [skipped, setSkipped] = useState(null);
   const [removing, setRemoving] = useState(false);
+  // the latest request; an answer to an earlier one is for a dataset no longer shown
+  const latest = useRef(0);
 
   const load = useCallback(async () => {
+    const mine = latest.current + 1;
+    latest.current = mine;
+
     setLoading(true);
     setError("");
     try {
-      setAnalytics(await getAnalytics(dataset.id));
+      const answer = await getAnalytics(dataset.id);
+      if (latest.current !== mine) return;
+
+      setAnalytics(answer);
+      setLoading(false);
     } catch (failure) {
+      if (latest.current !== mine) return;
+
       // an upload is deleted after a week; the browser may still remember it
       if (statusOf(failure) === 404 && dataset.id !== "sample") {
-        reset(GONE);
+        forgetUpload(GONE);
         return;
       }
       setAnalytics(null);
       setError(errorMessage(failure));
-    } finally {
       setLoading(false);
     }
-  }, [dataset.id, reset]);
+  }, [dataset.id, forgetUpload]);
 
   useEffect(() => {
     load();
@@ -67,9 +77,9 @@ const Analytics = () => {
     choose(next);
   };
 
-  const backToSample = () => {
+  const showSample = () => {
     setSkipped(null);
-    reset();
+    viewSample();
   };
 
   const remove = async () => {
@@ -79,11 +89,11 @@ const Analytics = () => {
     try {
       await removeDataset(dataset.id);
       setSkipped(null);
-      reset("Your uploaded posts were removed.");
+      forgetUpload("Your uploaded posts were removed.");
     } catch (failure) {
       // already gone is the result the visitor wanted
       if (statusOf(failure) === 404) {
-        reset("Your uploaded posts were removed.");
+        forgetUpload("Your uploaded posts were removed.");
       } else {
         setError(errorMessage(failure));
       }
@@ -107,10 +117,12 @@ const Analytics = () => {
         <DatasetBar
           dataset={dataset}
           isSample={isSample}
+          upload={upload}
           info={ready ? analytics.dataset : null}
           busy={removing}
           onUpload={() => setUploadOpen(true)}
-          onBackToSample={backToSample}
+          onViewSample={showSample}
+          onViewUpload={viewUpload}
           onRemove={remove}
         />
 
@@ -141,7 +153,7 @@ const Analytics = () => {
         )}
 
         {loading && (
-          <div className="flex justify-center items-center py-24">
+          <div className="flex justify-center items-center py-24" role="status">
             <div className="flex flex-col items-center">
               <div className="animate-spin rounded-full h-16 w-16 md:h-24 md:w-24 border-t-4 border-b-4 border-white"></div>
               <div className="text-white mt-4">Loading…</div>

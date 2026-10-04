@@ -16,7 +16,8 @@ const getClient = () => {
 };
 
 // Asks the language model for an answer that follows the given JSON schema and
-// returns it parsed. Any failure, including an answer that is not JSON, throws.
+// returns it parsed. A call that fails throws. A call that came back with something
+// that is not JSON (a blocked or empty answer) returns null: the model was asked.
 const generateJson = async (prompt, schema) => {
     const response = await getClient().models.generateContent({
         model: process.env.GEMINI_MODEL || DEFAULT_MODEL,
@@ -29,7 +30,11 @@ const generateJson = async (prompt, schema) => {
         },
     });
 
-    return JSON.parse(response.text);
+    try {
+        return JSON.parse(response.text);
+    } catch (error) {
+        return null;
+    }
 };
 
 export { generateJson, assistantReady }
