@@ -4,21 +4,22 @@ InfluenceIQ shows how the posts of a social media account perform, and answers
 questions about them. It began as a personal project of the team in January
 2025. This document describes the completed version.
 
-## 1. Where the project stands
+## 1. Where the project started
 
-The first version has a landing page, an analytics page and an insights
-page, and a small server.
+The first version had a landing page, an analytics page and an insights
+page, and a small server. Its posts came from an Astra DB database and its
+answers from a flow on the hosted Langflow service. To become a complete app
+it still needed:
 
-| Problem | Effect |
-|---|---|
-| The posts are read from an Astra DB database that belonged to the team | The page is empty when that database is paused or gone; free Astra databases are paused after 48 idle hours and deleted after 30 more days |
-| Insights calls a flow on the hosted Langflow service | That service was shut down in April 2026, so the page can no longer answer |
-| The Langflow token is sent from the browser | Anyone can read it |
-| A database connection bundle and tokens were committed | They are removed from the history of the new repository |
-| Figures are calculated in the browser, with no error state | A failed request shows zeros |
-| Insights keeps one question and one answer | No conversation, and an answer that is not exact JSON shows nothing |
-| The "date-wise" chart shows no dates; the table sorts numbers as text | Wrong pictures of the data |
-| No tests | Nothing guards the behaviour |
+- a database and an assistant of its own: the hosted Langflow service was
+  shut down in April 2026, and free Astra databases are paused and later
+  deleted when nobody uses them
+- the assistant called by the server, not by the browser
+- figures calculated by the server, with an error state on the pages
+- a conversation on the insights page, and answers that always have a shape
+  the page can show
+- dates on the chart by date, and numbers sorted as numbers in the table
+- tests
 
 ## 2. What the completed app does
 
@@ -31,11 +32,10 @@ accounts.
 
 | Topic | Decision |
 |---|---|
-| Repository | New repository `influenceiq` under samirsuroshe18, team history kept, secrets removed from every commit |
 | Database | MongoDB (Atlas), database `influenceiq` |
 | Assistant | Google Gemini, called by the server. Model from `GEMINI_MODEL`, default `gemini-3.5-flash-lite` |
 | Data | A sample dataset, plus CSV upload without login |
-| Look | The current dark look is kept; what is broken is fixed |
+| Look | The dark look of the first version is kept |
 | Out of scope | Accounts, saved datasets, connecting to real social media accounts, email |
 
 The README says that the first version used Astra DB and Langflow and why
