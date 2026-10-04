@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaEnvelope } from "react-icons/fa";
 import Navbar from "../components/Navbar";
@@ -9,10 +8,10 @@ import Mohit from "../assets/Mohit.jpeg";
 
 const teamMembers = [
   {
-    name: "Mohit Dhangar",
-    profilePic: Mohit,
-    github: "https://github.com/mohit45v",
-    email: "mohit.dhangar88@gmail.com",
+    name: "Samir Suroshe",
+    profilePic: Samir,
+    github: "https://github.com/samirsuroshe18",
+    email: "sameersuroshe50@gmail.com",
   },
   {
     name: "Tanishq Kulkarni",
@@ -21,10 +20,10 @@ const teamMembers = [
     email: "tanishqkulkarni18@gmail.com",
   },
   {
-    name: "Samir Suroshe",
-    profilePic: Samir,
-    github: "https://github.com/samirsuroshe18",
-    email: "sameersuroshe50@gmail.com",
+    name: "Mohit Dhangar",
+    profilePic: Mohit,
+    github: "https://github.com/mohit45v",
+    email: "mohit.dhangar88@gmail.com",
   },
   {
     name: "Pranay Sanap",

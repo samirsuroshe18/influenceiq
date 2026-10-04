@@ -1,6 +1,11 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from "../assets/cropped.png";
+
+const LINKS = [
+  { to: '/analytics', label: 'Analytics' },
+  { to: '/insights', label: 'Insights' },
+  { to: '/about', label: 'About Us' },
+];
 
 const Footer = () => {
   return (
@@ -21,7 +26,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-lg font-medium text-center md:text-left">
-              Empowering innovation through AI-driven solutions.
+              See how your posts perform, and ask why.
             </p>
           </div>
 
@@ -30,26 +35,13 @@ const Footer = () => {
             <h4 className="text-xl font-semibold mb-4">Quick Links</h4>
             <nav>
               <ul className="flex flex-wrap justify-center md:justify-end gap-6">
-                <li>
-                  <Link to="/about" className="text-white hover:text-gray-400 transition-colors">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" className="text-white hover:text-gray-400 transition-colors">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/privacy-policy" className="text-white hover:text-gray-400 transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/terms-of-service" className="text-white hover:text-gray-400 transition-colors">
-                    Terms of Service
-                  </Link>
-                </li>
+                {LINKS.map((link) => (
+                  <li key={link.to}>
+                    <Link to={link.to} className="text-white hover:text-gray-400 transition-colors">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
@@ -58,9 +50,8 @@ const Footer = () => {
         {/* Bottom section */}
         <div className="border-t border-gray-800 pt-2 space-y-4">
           <div className="flex flex-col items-center">
-            <p className="text-sm">Email: hackhorizon8@gmail.com</p>
             <p className="text-sm">
-              © 2025 Influence<sup>IQ</sup> All rights reserved.
+              © 2025 Influence<sup>IQ</sup>. Built by team Hack Horizon.
             </p>
           </div>
         </div>

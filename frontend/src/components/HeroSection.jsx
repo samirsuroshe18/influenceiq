@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import heroImg from "../assets/hero.jpg";
 import { FaGithub } from "react-icons/fa"
@@ -34,19 +33,22 @@ const HeroSection = () => {
             Influence IQ
           </motion.h2>
           <p className="text-gray-300 mb-6">
-          Unlock the full potential of your social media presence with cutting-edge AI-powered tools. Analyze engagement trends, gain actionable insights, and make data-driven decisions to elevate your online impact. Let GenAI simplify social media analytics like never before.
+          See how your reels, carousels and static posts really perform, month by month. Start with the sample account or upload a CSV of your own posts, then ask the assistant what the numbers mean.
           </p>
           <div className="flex justify-center md:justify-start gap-4">
-            <Link to="https://youtu.be/AI5_LbOnXm0">
-              <button className="bg-purple-600 px-6 py-3 rounded-full text-white font-medium hover:bg-purple-700 transition">
-                View Demo
-              </button>
+            <Link to="/analytics" className="bg-purple-600 px-6 py-3 rounded-full text-white font-medium hover:bg-purple-700 transition">
+              See the Analytics
             </Link>
-            <Link to='https://github.com/TanishqMSD/socialmedia-analyzer'>
-            <button className="border-2 border-gray-500 px-6 py-3 rounded-full text-white font-medium hover:bg-gray-700 transition">
-              <div className="flex items-center gap-2">
-              Github <FaGithub className='p-[2px] w-6 h-6'/></div>
-            </button> </Link>
+            <a
+              href="https://github.com/samirsuroshe18/influenceiq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border-2 border-gray-500 px-6 py-3 rounded-full text-white font-medium hover:bg-gray-700 transition"
+            >
+              <span className="flex items-center gap-2">
+                Github <FaGithub className='p-[2px] w-6 h-6' />
+              </span>
+            </a>
           </div>
         </div>
 
@@ -61,7 +63,7 @@ const HeroSection = () => {
             {/* Placeholder for image */}
             <img
               src={heroImg}
-              alt="Designer Placeholder"
+              alt=""
               className="w-full h-full object-cover"
             />
           </motion.div>
