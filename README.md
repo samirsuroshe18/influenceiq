@@ -4,9 +4,8 @@ InfluenceIQ shows how the posts of a social media account perform, and answers
 questions about them. Open it and you see the analytics of a sample account;
 upload a CSV of your own posts and you see the same for them.
 
-The project started as the pre-hackathon assignment of the Level SuperMind
-hackathon in January 2025 and was completed afterwards.
-[docs/design.md](docs/design.md) describes the design.
+We started it as a personal project in January 2025 and completed it
+afterwards. [docs/design.md](docs/design.md) describes the design.
 
 ## What it does
 
@@ -21,9 +20,9 @@ hackathon in January 2025 and was completed afterwards.
   knows. It is deleted after 7 days, and you can remove it earlier. You can
   switch between your upload and the sample at any time.
 
-## How it changed since the hackathon
+## How it changed since the first version
 
-The hackathon version read its posts from an Astra DB database and got its
+The first version read its posts from an Astra DB database and got its
 answers from a flow on DataStax's hosted Langflow service. That service was
 shut down in April 2026, and free Astra databases are paused and later deleted
 when nobody uses them. The completed version keeps the same idea and pages,

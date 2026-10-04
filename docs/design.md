@@ -1,12 +1,12 @@
 # InfluenceIQ: design of the completed app
 
 InfluenceIQ shows how the posts of a social media account perform, and answers
-questions about them. It began as an assignment for the Level SuperMind
-hackathon in January 2025. This document describes the completed version.
+questions about them. It began as a personal project of the team in January
+2025. This document describes the completed version.
 
 ## 1. Where the project stands
 
-The hackathon version has a landing page, an analytics page and an insights
+The first version has a landing page, an analytics page and an insights
 page, and a small server.
 
 | Problem | Effect |
@@ -38,7 +38,7 @@ accounts.
 | Look | The current dark look is kept; what is broken is fixed |
 | Out of scope | Accounts, saved datasets, connecting to real social media accounts, email |
 
-The README says that the hackathon version used Astra DB and Langflow and why
+The README says that the first version used Astra DB and Langflow and why
 they were replaced.
 
 ## 3. Data
