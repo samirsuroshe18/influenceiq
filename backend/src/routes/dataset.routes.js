@@ -2,6 +2,7 @@ import { Router } from "express";
 import { acceptCsv } from '../middlewares/upload.middleware.js'
 import { uploadLimiter } from '../middlewares/rateLimit.middleware.js'
 import { downloadSample, getAnalytics, removeDataset, uploadDataset } from "../controllers/dataset.controller.js";
+import { askQuestion } from "../controllers/question.controller.js";
 
 const router = Router();
 
@@ -11,6 +12,7 @@ router.route('/').post(uploadLimiter, acceptCsv, uploadDataset);
 router.route('/sample.csv').get(downloadSample);
 
 router.route('/:id/analytics').get(getAnalytics);
+router.route('/:id/questions').post(askQuestion);
 router.route('/:id').delete(removeDataset);
 
 
