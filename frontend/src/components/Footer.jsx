@@ -51,7 +51,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-2 space-y-4">
           <div className="flex flex-col items-center">
             <p className="text-sm">
-              © 2025 Influence<sup>IQ</sup>. Built by team Hack Horizon.
+              © {new Date().getFullYear()} Influence<sup>IQ</sup>. Built by team Hack Horizon.
             </p>
           </div>
         </div>

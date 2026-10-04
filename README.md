@@ -199,6 +199,10 @@ docs/
 
 Built by team Hack Horizon: Samir Suroshe
 ([@samirsuroshe18](https://github.com/samirsuroshe18)), Tanishq Kulkarni
-([@TanishqMSD](https://github.com/TanishqMSD)), Mohit Dhangar
+([@tanishqbuilds](https://github.com/tanishqbuilds)), Mohit Dhangar
 ([@mohit45v](https://github.com/mohit45v)) and Pranay Sanap
 ([@pranaysanap](https://github.com/pranaysanap)).
+
+## License
+
+[MIT](LICENSE)

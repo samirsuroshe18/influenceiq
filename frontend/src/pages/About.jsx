@@ -16,7 +16,7 @@ const teamMembers = [
   {
     name: "Tanishq Kulkarni",
     profilePic: Tanishq,
-    github: "https://github.com/TanishqMSD",
+    github: "https://github.com/tanishqbuilds",
     email: "tanishqkulkarni18@gmail.com",
   },
   {
